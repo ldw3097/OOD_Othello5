@@ -86,5 +86,11 @@ int main(int argc, char** argv) {
     free(temp_table[i]);
   }
   free(temp_table);
+
+  for(int i=0; i<x; i++) {
+    free(node_table[i]);
+  }
+  free(node_table);
+
   return 0;
 }
