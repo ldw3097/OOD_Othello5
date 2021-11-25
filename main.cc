@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
   for (int i=0; i<y; i++) {
     for (int j=0; j<x; j++) {
       if (i == 0) {	
-        temp_top = nullptr; 
+        temp_top = nullptr;
       }else temp_top = node_table[i-1][j];
       if (i == y-1) {	
         temp_bottom = nullptr; 
@@ -82,12 +82,38 @@ int main(int argc, char** argv) {
 
   Node_Print_table* NT = Node_Print_table::GetInstance(node_table, x, y);
   NT->Print();
+
+
   std::cout << "0 : Filled, 1 : Empty, Nothing : -1" << std::endl;
   std::cout << "3,4 color" << node_table[4][3]->GetColor() << std::endl;
   std::cout << "top color" << node_table[4][3]->GetTop()->GetColor() << std::endl;
   std::cout << "right color " << node_table[4][3]->GetRight()->GetColor() << std::endl;
   std::cout << "left color " << node_table[4][3]->GetLeft()->GetColor() << std::endl;
   std::cout << "bottom color " << node_table[4][3]->GetLeft()->GetColor() << std::endl;
+
+
+
+  std::cout << std::endl;
+  std::cout << std::endl;
+  std::cout << std::endl;
+
+  int ip_x_, ip_y_;
+  int color = 0;
+  while(ip_x_ != 99) {
+    std::cin >> ip_x_ >> ip_y_;
+    color = !color;
+    color = 0x1 & color;
+    if(node_table[ip_y_][ip_x_]->GetColor() != -1)continue;
+    node_table[ip_y_][ip_x_]->SetColor(color);
+    std::cout << "~~~in~~~" << std::endl;
+    node_table[ip_y_][ip_x_]->BFS();
+    NT->Print();
+  }
+
+
+
+
+
 
   for(int i=0; i<x; i++) {
     free(temp_table[i]);

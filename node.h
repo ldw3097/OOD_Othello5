@@ -7,6 +7,8 @@ class Node {
   const void SetNode(Node* left, Node* right, Node* top, Node* bottom);
   const void SetColor(int color) ;
   const int GetColor() const;
+
+//const Node*는 Getter Setter설정할때 오류가 발생함.
   Node* GetLeft() const ;
   Node* GetRight() const ;
   Node* GetTop() const ;
