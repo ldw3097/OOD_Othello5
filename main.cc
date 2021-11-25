@@ -6,15 +6,12 @@
 #include <string>
 
 int main(int argc, char** argv) {
-	//hihiyoyoyo
-	// update test
   int x=8; 
   int y=8;
-  int table;
   int** temp_table;
-  temp_table = (int**)malloc(sizeof(int*)*y);
+  temp_table = new int*[y];
   for(int i=0; i<x; i++) {
-    temp_table[i] = (int*)malloc(sizeof(int) * x);
+    temp_table[i] = new int[x];
   }
   for (int i=0; i<y; i++) {
     for (int j=0; j<x; j++) {
@@ -30,7 +27,7 @@ int main(int argc, char** argv) {
 
   //node table
   Node*** node_table;
-  Node* temp_top = (Node*)malloc(sizeof(Node*));
+  Node* temp_top = new Node();
   Node* temp_bottom = (Node*)malloc(sizeof(Node*));
   Node* temp_left = (Node*)malloc(sizeof(Node*));
   Node* temp_right = (Node*)malloc(sizeof(Node*));

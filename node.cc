@@ -2,6 +2,8 @@
 
 Node::Node(int color):color_(color), left_(nullptr), right_(nullptr), top_(nullptr), bottom_(nullptr) {}
 
+Node::Node(){};
+
 const void Node::SetNode(Node* left, Node* right, Node* top, Node* bottom) {
   this->left_ = left;
   this->right_ = right;

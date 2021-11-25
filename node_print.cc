@@ -1,42 +1,43 @@
 #include "node_print.h"
-#include <string>
+
 #include <iostream>
+#include <string>
 
-#define LU "\u250c"	//Left Up
-#define RU "\u2510"	//Right Up
-#define MU "\u252c"	//Mid Up
+#define LU "\u250c"  // Left Up
+#define RU "\u2510"  // Right Up
+#define MU "\u252c"  // Mid Up
 
-#define LD "\u2514"	//Left Down
-#define RD "\u2518"	//Right Down
-#define MD "\u2534"	//Mid Down
+#define LD "\u2514"  // Left Down
+#define RD "\u2518"  // Right Down
+#define MD "\u2534"  // Mid Down
 
-#define VL "\u2502"	//Vertical Line
-#define HL "\u2500"	//Horizon Line
+#define VL "\u2502"  // Vertical Line
+#define HL "\u2500"  // Horizon Line
 
-#define CR "\u253c"	//CRoss
+#define CR "\u253c"  // CRoss
 
-#define SE " "		//Space Empty
+#define SE " "  // Space Empty
 
-#define FD "\u25cf"	//Filled Dot
-#define ED "\u25cb"	//Empty Dot
+#define FD "\u25cf"  // Filled Dot
+#define ED "\u25cb"  // Empty Dot
 
 const void Node_Print_table::Print() const {
   int x = this->x_;
   int y = this->y_;
-  std::string line1_  = "  ";
-  std::string line2_ =  "   ";
+  std::string line1_ = "  ";
+  std::string line2_ = "   ";
 
-  for(int i=0; i<x; i++) {
-      line1_ += "   ";
-      line1_ += std::to_string(i);
+  for (int i = 0; i < x; i++) {
+    line1_ += "   ";
+    line1_ += std::to_string(i);
   }
   std::cout << line1_ << std::endl;
   line2_ += LU;
-  for(int i=0; i<x; i++) {
-      line2_ += HL;
-      line2_ += HL;
-      line2_ += HL;
-    if(i == x-1) {
+  for (int i = 0; i < x; i++) {
+    line2_ += HL;
+    line2_ += HL;
+    line2_ += HL;
+    if (i == x - 1) {
       line2_ += RU;
     } else {
       line2_ += MU;
@@ -44,41 +45,42 @@ const void Node_Print_table::Print() const {
   }
   std::cout << line2_ << std::endl;
 
-
-  for(int i=0; i<y; i++){
+  for (int i = 0; i < y; i++) {
     line1_ = " " + std::to_string(i) + " " + VL;
-    for(int j=0; j<x; j++){
+    for (int j = 0; j < x; j++) {
       line1_ += SE;
       if (this->table_[i][j]->GetColor() == -1) {
         line1_ += SE;
-      	line1_ += SE;
-
+        line1_ += SE;
       } else if (this->table_[i][j]->GetColor() == 0) {
         line1_ += FD;
+        line1_ += SE;
       } else if (this->table_[i][j]->GetColor() == 1) {
         line1_ += ED;
+        line1_ += SE;
       }
       line1_ += VL;
     }
     std::cout << line1_ << std::endl;
     line2_ = "   ";
-    if (i < y-1) {
+    if (i < y - 1) {
       line2_ += VL;
-      for(int i=0; i<x; i++) {
+      for (int i = 0; i < x; i++) {
         line2_ += HL;
         line2_ += HL;
         line2_ += HL;
-        if(i < x-1) {
-            line2_ += CR;
-        } else line2_ +=VL;
+        if (i < x - 1) {
+          line2_ += CR;
+        } else
+          line2_ += VL;
       }
-    } else if (i == y-1) {
+    } else if (i == y - 1) {
       line2_ += LD;
-      for(int i=0; i<x; i++) {
+      for (int i = 0; i < x; i++) {
         line2_ += HL;
         line2_ += HL;
         line2_ += HL;
-        if(i < x-1) {
+        if (i < x - 1) {
           line2_ += MD;
         }
       }
@@ -88,11 +90,10 @@ const void Node_Print_table::Print() const {
   }
 }
 
-
 Node_Print_table* Node_Print_table::instance_ = NULL;
 
 Node_Print_table::Node_Print_table(Node*** table, int x, int y)
-  : table_(table), x_(x), y_(y) {}
+    : table_(table), x_(x), y_(y) {}
 
 Node_Print_table* Node_Print_table::GetInstance(Node*** table, int x, int y) {
   if (instance_ == NULL) {

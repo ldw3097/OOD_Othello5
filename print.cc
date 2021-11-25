@@ -54,11 +54,13 @@ const void Print_table::Print() const {
       line1_ += SE;
       if (this->table_[i][j] == -1) {
         line1_ += SE;
-	line1_ += SE;
+	      line1_ += SE;
       } else if (this->table_[i][j] == 0) {
         line1_ += FD;
+        line1_ += SE;
       } else if (this->table_[i][j] == 1) {
         line1_ += ED;
+        line1_ += SE;
       }
       line1_ += VL;
     }
