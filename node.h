@@ -8,16 +8,19 @@ class Node {
   const void SetNode(Node* left, Node* right, Node* top, Node* bottom) ;
   const void SetColor(int color) ;
   const int GetColor() const;
-  const Node* GetLeft() const;
-  const Node* GetRight() const;
-  const Node* GetTop() const;
-  const Node* GetBottom() const;
+
+//const Node*?äî Getter Setter?Ñ§?†ï?ï†?ïå ?ò§Î•òÍ?? Î∞úÏÉù?ï®.
+  Node* GetLeft() const ;
+  Node* GetRight() const ;
+  Node* GetTop() const ;
+  Node* GetBottom() const ;
+  void BFS() const;
  private:
-  const Node* left_ = nullptr; 
-  const Node* right_ = nullptr;
-  const Node* top_ = nullptr;
-  const Node* bottom_ = nullptr;
-  int color_ = -1;  // -1:space, 0:filled dot, 1:empty dot
+  Node* left_; 
+  Node* right_;
+  Node* top_;
+  Node* bottom_;
+  int color_ ;
 };
 
 #endif  // NODE_H
