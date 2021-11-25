@@ -18,8 +18,8 @@
 #define UE "\3000"	//Unicode Empty
 #define SE " "		//Space Empty
 
-#define BD "\u25cf"	//Black Dot
-#define WD "\u25cb"	//White Dot
+#define FD "\u25cf"	//Fiiled Dot
+#define ED "\u25cb"	//Empty Dot
 
 
 
@@ -56,9 +56,9 @@ const void Print_table::Print() const {
         line1_ += SE;
 	line1_ += SE;
       } else if (this->table_[i][j] == 0) {
-        line1_ += BD;
+        line1_ += FD;
       } else if (this->table_[i][j] == 1) {
-        line1_ += WD;
+        line1_ += ED;
       }
       line1_ += VL;
     }

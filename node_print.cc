@@ -17,8 +17,8 @@
 
 #define SE " "		//Space Empty
 
-#define BD "\u25cf"	//Black Dot
-#define WD "\u25cb"	//White Dot
+#define FD "\u25cf"	//Filled Dot
+#define ED "\u25cb"	//Empty Dot
 
 const void Node_Print_table::Print() const {
   int x = this->x_;
@@ -54,9 +54,9 @@ const void Node_Print_table::Print() const {
       	line1_ += SE;
 
       } else if (this->table_[i][j]->GetColor() == 0) {
-        line1_ += BD;
+        line1_ += FD;
       } else if (this->table_[i][j]->GetColor() == 1) {
-        line1_ += WD;
+        line1_ += ED;
       }
       line1_ += VL;
     }

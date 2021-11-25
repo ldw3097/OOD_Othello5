@@ -82,6 +82,12 @@ int main(int argc, char** argv) {
 
   Node_Print_table* NT = Node_Print_table::GetInstance(node_table, x, y);
   NT->Print();
+  std::cout << "0 : Filled, 1 : Empty, Nothing : -1" << std::endl;
+  std::cout << "3,4 color" << node_table[4][3]->GetColor() << std::endl;
+  std::cout << "top color" << node_table[4][3]->GetTop()->GetColor() << std::endl;
+  std::cout << "right color " << node_table[4][3]->GetRight()->GetColor() << std::endl;
+  std::cout << "left color " << node_table[4][3]->GetLeft()->GetColor() << std::endl;
+  std::cout << "bottom color " << node_table[4][3]->GetLeft()->GetColor() << std::endl;
 
   for(int i=0; i<x; i++) {
     free(temp_table[i]);

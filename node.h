@@ -7,6 +7,10 @@ class Node {
   const void SetNode(Node* left, Node* right, Node* top, Node* bottom) ;
   const void SetColor(int color) ;
   const int GetColor() const;
+  const Node* GetLeft() const;
+  const Node* GetRight() const;
+  const Node* GetTop() const;
+  const Node* GetBottom() const;
  private:
   const Node* left_; 
   const Node* right_;

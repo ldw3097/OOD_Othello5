@@ -15,3 +15,15 @@ const void Node::SetColor(int color) {
 const int Node::GetColor() const {
   return this->color_;
 }
+const Node* Node::GetLeft() const {
+  return this->left_;
+}
+const Node* Node::GetRight() const {
+  return this->right_;
+}
+const Node* Node::GetTop() const {
+  return this->top_;
+}
+const Node* Node::GetBottom() const {
+  return this->bottom_;
+}
