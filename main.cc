@@ -8,9 +8,8 @@
 int main(int argc, char** argv) {
 	//hihiyoyoyo
   int x=8; 
-  int y=8; 
-
-  // int table
+  int y=8;
+  int table;
   int** temp_table;
   temp_table = (int**)malloc(sizeof(int*)*y);
   for(int i=0; i<x; i++) {
@@ -45,7 +44,7 @@ int main(int argc, char** argv) {
     }
   }
   for (int i=0; i<y; i++) {
-    for (int j=0; j<x; j++) {	//³ëµå ¿«±â
+    for (int j=0; j<x; j++) {
       if (i == 0) {	
         temp_top = nullptr; 
       }else temp_top = node_table[i-1][j];
