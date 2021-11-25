@@ -4,19 +4,20 @@
 class Node {
  public:
   Node(int color);
-  const void SetNode(Node* left, Node* right, Node* top, Node* bottom) ;
+  const void SetNode(Node* left, Node* right, Node* top, Node* bottom);
   const void SetColor(int color) ;
   const int GetColor() const;
-  const Node* GetLeft() const;
-  const Node* GetRight() const;
-  const Node* GetTop() const;
-  const Node* GetBottom() const;
+  Node* GetLeft() const ;
+  Node* GetRight() const ;
+  Node* GetTop() const ;
+  Node* GetBottom() const ;
+  void BFS() const;
  private:
-  const Node* left_; 
-  const Node* right_;
-  const Node* top_;
-  const Node* bottom_;
-  int color_;
+  Node* left_; 
+  Node* right_;
+  Node* top_;
+  Node* bottom_;
+  int color_ ;
 };
 
 #endif  // NODE_H
