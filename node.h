@@ -4,14 +4,14 @@
 class Node {
  public:
   Node(int color);
-  const void SetNode(Node* left, Node* right, Node* top, Node* bottom) const;
-  const void SetColor(int color) const;
+  const void SetNode(Node* left, Node* right, Node* top, Node* bottom) ;
+  const void SetColor(int color) ;
   const int GetColor() const;
  private:
-  Node* left_; 
-  Node* right_;
-  Node* top_;
-  Node* bottom_;
+  const Node* left_; 
+  const Node* right_;
+  const Node* top_;
+  const Node* bottom_;
   int color_;
 };
 
