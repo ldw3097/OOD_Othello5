@@ -96,7 +96,9 @@ int main(int argc, char** argv) {
   std::cout << std::endl;
   std::cout << std::endl;
   std::cout << std::endl;
-
+// 임시 유저 인터페이스 
+// 입력할때마다 돌 색이 바뀌며 돌이 있는곳에 두면 취소하고 다음 입력받음
+// 지금은 버그있어서 연결된 모든 돌의 색이 변함 21-11-26
   int ip_x_, ip_y_;
   int color = 0;
   while(ip_x_ != 99) {
@@ -105,7 +107,6 @@ int main(int argc, char** argv) {
     color = 0x1 & color;
     if(node_table[ip_y_][ip_x_]->GetColor() != -1)continue;
     node_table[ip_y_][ip_x_]->SetColor(color);
-    std::cout << "~~~in~~~" << std::endl;
     node_table[ip_y_][ip_x_]->BFS();
     NT->Print();
   }
