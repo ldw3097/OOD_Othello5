@@ -84,8 +84,8 @@ const void Node_Print_table::Print() const {
         line2_ += HL;
         line2_ += HL;
         if(i < x-1) {
-          line2_ += HL;
-        }else line2_ +=MD;
+          line2_ += MD;
+        }
       }
       line2_ += RD;
     }
