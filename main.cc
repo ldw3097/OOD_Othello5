@@ -105,6 +105,7 @@ int main(int argc, char** argv) {
   int color = 0;
   while (ip_x_ != 99) {
     std::cin >> ip_x_ >> ip_y_;
+  std::cout << color << std::endl;
     color = !color;
     color = 0x1 & color;
     if (node_table[ip_y_][ip_x_]->GetColor() != -1) continue;

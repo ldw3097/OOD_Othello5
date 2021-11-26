@@ -31,71 +31,79 @@ Node* Node::GetBottom() const {
 }
 
 void Node::BFS() const {
+  const Node* index=this;
   if(this->GetLeft() != nullptr) {
     if(this->GetColor() != this->GetLeft()->GetColor() && this->GetColor() != -1) {
-      const Node* index=this;
+      index=this;
       while (index->GetLeft()->GetColor() != -1) {
-        if(index->GetColor() == this->GetColor()) {
-            this->GetLeft()->SetColor(this->GetColor());
-            this->GetLeft()->BFS();
-            break;
-        }
-        delete index;
+          if(index != this && index->GetColor() == this->GetColor()) {
+              this->GetLeft()->SetColor(this->GetColor());
+              this->GetLeft()->BFS();
+              break;
+          }
+        
         index = index->GetLeft();
-        if(index->GetLeft() != nullptr) break;
+        if(index->GetLeft() == nullptr) break;
       }
     }
   }
+  std::cout<< "exit L" << std::endl;
 //RIGHT
   if(this->GetRight() != nullptr) {
     if(this->GetColor() != this->GetRight()->GetColor() && this->GetColor() != -1) {
-      const Node* index=this;
+      index=this;
       while (index->GetRight()->GetColor() != -1) {
-        if(index->GetColor() == this->GetColor()) {
-            this->GetRight()->SetColor(this->GetColor());
-            this->GetRight()->BFS();
-            break;
-        }
-        delete index;
+          if(index != this && index->GetColor() == this->GetColor()) {
+              this->GetRight()->SetColor(this->GetColor());
+              this->GetRight()->BFS();
+              break;
+          }
+        
         index = index->GetRight();
-        if(index->GetRight() != nullptr) break;
+        if(index->GetRight() == nullptr) break;
       }
     }
   }
+  std::cout<< "exit R" << std::endl;
 
-
+    
 //TOP
   if(this->GetTop() != nullptr) {
     if(this->GetColor() != this->GetTop()->GetColor() && this->GetColor() != -1) {
-      const Node* index=this;
+      index=this;
       while (index->GetTop()->GetColor() != -1) {
-        if(index->GetColor() == this->GetColor()) {
-            this->GetTop()->SetColor(this->GetColor());
-            this->GetTop()->BFS();
-            break;
-        }
-        delete index;
+          if(index != this && index->GetColor() == this->GetColor()) {
+              this->GetTop()->SetColor(this->GetColor());
+              this->GetTop()->BFS();
+              break;
+          }
+        
         index = index->GetTop();
-        if(index->GetTop() != nullptr) break;
+        if(index->GetTop() == nullptr) break;
       }
     }
   }
 
-
+  std::cout<< "exit T" << std::endl;
 //BOTTOM
   if(this->GetBottom() != nullptr) {
     if(this->GetColor() != this->GetBottom()->GetColor() && this->GetColor() != -1) {
-      const Node* index=this;
+      index=this;
       while (index->GetBottom()->GetColor() != -1) {
-        if(index->GetColor() == this->GetColor()) {
-            this->GetBottom()->SetColor(this->GetColor());
-            this->GetBottom()->BFS();
-            break;
-        }
-        delete index;
+          if(index != this && index->GetColor() == this->GetColor()) {
+              this->GetBottom()->SetColor(this->GetColor());
+              this->GetBottom()->BFS();
+              break;
+          }
+        
         index = index->GetBottom();
-        if(index->GetBottom() != nullptr) break;
+        if(index->GetBottom() == nullptr) break;
       }
     }
   }
+  std::cout<< "exit B" << std::endl;
+  delete index;
+
+  //참조 : https://tmdgus.tistory.com/163
+  index = NULL;
 }
