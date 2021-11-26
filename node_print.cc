@@ -53,13 +53,12 @@ const void Node_Print_table::Print() const {
       //공백 사이에 들어갈 문자 선택
       if (this->table_[i][j]->GetColor() == -1) {
         line1_ += SE;
+       line1_ += SE;
       } else if (this->table_[i][j]->GetColor() == 0) {
         line1_ += FD;
       } else if (this->table_[i][j]->GetColor() == 1) {
         line1_ += ED;
       }
-
-        line1_ += SE;
       line1_ += VL;
     }
     std::cout << line1_ << std::endl;

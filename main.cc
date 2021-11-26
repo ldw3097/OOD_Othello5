@@ -8,12 +8,14 @@
 #define x 8
 #define y 8
 
+
+
 Node*** InitNewTable() {
   Node*** node;
-  Node* temp_top = new Node();
-  Node* temp_bottom = new Node();
-  Node* temp_left = new Node();
-  Node* temp_right = new Node();
+  Node* temp_top = nullptr;
+  Node* temp_bottom = nullptr;
+  Node* temp_left = nullptr;
+  Node* temp_right = nullptr;
 
   node = new Node**[y];
 
@@ -45,6 +47,11 @@ Node*** InitNewTable() {
         temp_right = node[i][j + 1];
 
       node[i][j]->SetNode(temp_left, temp_right, temp_top, temp_bottom);
+      //포인터 청소
+      temp_top = nullptr;
+      temp_bottom = nullptr;
+      temp_left = nullptr;
+      temp_right = nullptr;
     }
   }
   for (int i = 0; i < 2; i++) {
@@ -95,6 +102,23 @@ int main(int argc, char** argv) {
   std::cout << "bottom color " << node_table[4][3]->GetLeft()->GetColor()
             << std::endl;
 
+
+
+  int temp_side=0;
+  for (int i=0; i<y; i++) {
+    for (int j=0; j<x; j++) {
+      if(node_table[i][j]->GetLeft() != nullptr)temp_side+=1;
+      if(node_table[i][j]->GetRight() != nullptr)temp_side+=1;
+      if(node_table[i][j]->GetTop() != nullptr)temp_side+=1;
+      if(node_table[i][j]->GetBottom() != nullptr)temp_side+=1;
+
+
+      std::cout << temp_side;
+      temp_side =0;
+    }
+      std::cout << "n" << std::endl;
+  }
+
   std::cout << std::endl;
   std::cout << std::endl;
   std::cout << std::endl;
@@ -111,6 +135,9 @@ int main(int argc, char** argv) {
     if (node_table[ip_y_][ip_x_]->GetColor() != -1) continue;
     node_table[ip_y_][ip_x_]->SetColor(color);
     node_table[ip_y_][ip_x_]->BFS();
+
+
+
     NT->Print();
   }
 
