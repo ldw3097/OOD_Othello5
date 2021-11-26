@@ -103,22 +103,6 @@ int main(int argc, char** argv) {
             << std::endl;
 
 
-
-  int temp_side=0;
-  for (int i=0; i<y; i++) {
-    for (int j=0; j<x; j++) {
-      if(node_table[i][j]->GetLeft() != nullptr)temp_side+=1;
-      if(node_table[i][j]->GetRight() != nullptr)temp_side+=1;
-      if(node_table[i][j]->GetTop() != nullptr)temp_side+=1;
-      if(node_table[i][j]->GetBottom() != nullptr)temp_side+=1;
-
-
-      std::cout << temp_side;
-      temp_side =0;
-    }
-      std::cout << "n" << std::endl;
-  }
-
   std::cout << std::endl;
   std::cout << std::endl;
   std::cout << std::endl;
