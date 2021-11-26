@@ -1,6 +1,7 @@
 #include "node.h"
 #include <iostream>
-Node::Node(int color):color_(color), left_(nullptr), right_(nullptr), top_(nullptr), bottom_(nullptr) {}
+Node::Node(int color, int x, int y):
+  color_(color), left_(nullptr), right_(nullptr), top_(nullptr), bottom_(nullptr), x_(x), y_(y) {}
 
 Node::Node(){};
 
@@ -33,73 +34,141 @@ Node* Node::Clone() const {
   return new Node(*this);
 }
 
+int Node::GetX() const {
+  return this->x_;
+}
+int Node::GetY() const {
+  return this->y_;
+}
+
+
 void Node::BFS() const {
-  std::cout<< "~~~~in~~~~" << std::endl;
+  std::cout << "~~~~" << this->x_ << ", " << this->y_ << "in~~~~" << std::endl;
 
   if(this->GetLeft() != nullptr) {
     if(this->GetColor() != this->GetLeft()->GetColor() && this->GetLeft()->GetColor() != -1) {
-      const Node* index = this->Clone()->GetLeft();
-      while (index->GetColor() != -1) {
-         if(index != this && index->GetColor() == this->GetColor()) {
+      Node* index1 = this->Clone()->GetLeft();
+      while (index1->GetColor() != -1) {
+        if(index1 != this && index1->GetColor() == this->GetColor()) {
+	delete index1; 
+	index1 = NULL;
+  std::cout << "change: " << this->GetLeft()->x_ << ", " << this->GetLeft()->y_ << "" << std::endl;
             this->GetLeft()->SetColor(this->GetColor());
             this->GetLeft()->BFS();
             break;
-         }
-        index = index->GetLeft();
-        if(index->GetLeft() == nullptr) break;
+        }
+          if(index1->GetLeft() == nullptr) break;
+          index1 = index1->GetLeft();
+          if(index1->GetLeft() == nullptr) break;
       }
+      delete index1;
+      index1 = NULL;
     }
-  }
+  } 
   std::cout<< "exit L" << std::endl;
 
 //RIGHT
   if(this->GetRight() != nullptr) {
     if(this->GetColor() != this->GetRight()->GetColor() && this->GetRight()->GetColor() != -1) {
-      const Node* index = this->Clone()->GetRight();
-      while (index->GetColor() != -1) {
-        if(index != this && index->GetColor() == this->GetColor()) {
+      Node* index2 = this->Clone()->GetRight();
+      while (index2->GetColor() != -1) {
+        if(index2 != this && index2->GetColor() == this->GetColor()) {
+	delete index2; 
+	index2 = NULL;
+  std::cout << "change: " << this->GetRight()->x_ << ", " << this->GetRight()->y_ << "" << std::endl;
             this->GetRight()->SetColor(this->GetColor());
             this->GetRight()->BFS();
             break;
         }
-        index = index->GetRight();
-        if(index->GetRight() == nullptr) break;
+          if(index2->GetRight() == nullptr) break;
+          index2 = index2->GetRight();
+          if(index2->GetRight() == nullptr) break;
       }
+      delete index2;
+      index2 = NULL;
     }
-  }
+  } 
   std::cout<< "exit R" << std::endl;
 
     
 //TOP
   if(this->GetTop() != nullptr) {
     if(this->GetColor() != this->GetTop()->GetColor() && this->GetTop()->GetColor() != -1) {
-      const Node* index = this->Clone()->GetTop();
-      while (index->GetColor() != -1) {
-        if(index != this && index->GetColor() == this->GetColor()) {
+      Node* index3 = this->Clone()->GetTop();
+      while (index3->GetColor() != -1) {
+        if(index3 != this && index3->GetColor() == this->GetColor()) {
+	delete index3; 
+	index3 = NULL;
+  std::cout << "change: " << this->GetTop()->x_ << ", " << this->GetTop()->y_ << "" << std::endl;
             this->GetTop()->SetColor(this->GetColor());
             this->GetTop()->BFS();
             break;
         }
-        index = index->GetTop();
-        if(index->GetTop() == nullptr) break;
+          if(index3->GetTop() == nullptr) break;
+          index3 = index3->GetTop();
+          if(index3->GetTop() == nullptr) break;
       }
+      delete index3;
+      index3 = NULL;
     }
-  }
+  } 
 
   std::cout<< "exit T" << std::endl;
 //BOTTOM
   if(this->GetBottom() != nullptr) {
     if(this->GetColor() != this->GetBottom()->GetColor() && this->GetBottom()->GetColor() != -1) {
-      const Node* index = this->Clone()->GetBottom();
-      while (index->GetColor() != -1) {
-        if(index != this && index->GetColor() == this->GetColor()) {
+      Node* index4 = this->Clone()->GetBottom();
+      while (index4->GetColor() != -1) {
+        if(index4 != this && index4->GetColor() == this->GetColor()) {
+	delete index4; 
+	index4 = NULL;
+  std::cout << "change: " << this->GetBottom()->x_ << ", " << this->GetBottom()->y_ << "" << std::endl;
             this->GetBottom()->SetColor(this->GetColor());
             this->GetBottom()->BFS();
             break;
         }
-        index = index->GetBottom();
-        if(index->GetBottom() == nullptr) break;
+  std::cout<< "12345" << std::endl;
+          if(index4->GetBottom() == nullptr) break;
+            index4 = index4->GetBottom();
+          if(index4->GetBottom() == nullptr) break;
+
       }
+      delete index4;
+      index4 = NULL;
     }
-  } //index할당 해제 해줘야함,,
+  } 
+  std::cout<< "exit B" << std::endl;
+  std::cout << "~~~~" << this->x_ << ", " << this->y_ << "out~~~~" << std::endl;
 }
+/*          Node* temp = index4->Clone();
+          index4 = NULL;
+          delete temp;
+          temp = NULL;*/
+
+/*
+백업 21-11-26 21:44
+
+  if(this->GetTop() != nullptr) {
+    if(this->GetColor() != this->GetTop()->GetColor() && this->GetTop()->GetColor() != -1) {
+std::cout<< "enter T" << std::endl;
+      const Node* index3 = this->Clone()->GetTop();
+      while (index3->GetColor() != -1) {
+        if(index3 != this && index3->GetColor() == this->GetColor()) {
+            delete index3;
+            index3 = NULL;
+
+  std::cout << "change: " << this->GetTop()->x_ << ", " << this->GetTop()->y_ << "" << std::endl;
+            this->GetTop()->SetColor(this->GetColor());
+            this->GetTop()->BFS();
+            break;
+        } else {
+          if(index3->GetTop() == nullptr) break;
+          index3 = index3->GetTop();
+          if(index3->GetTop() == nullptr) break;
+        }
+      }
+      delete index3;
+      index3 = NULL;
+    }
+  }
+*/

@@ -8,25 +8,12 @@
 #define x 8
 #define y 8
 
-
-
-Node*** InitNewTable() {
-  Node*** node;
+void SortTable(Node*** node) {
   Node* temp_top = nullptr;
   Node* temp_bottom = nullptr;
   Node* temp_left = nullptr;
   Node* temp_right = nullptr;
 
-  node = new Node**[y];
-
-  for (int i = 0; i < x; i++) {
-    node[i] = new Node*[x];
-  }
-  for (int i = 0; i < y; i++) {  // new node
-    for (int j = 0; j < x; j++) {
-      node[i][j] = new Node();
-    }
-  }
   for (int i = 0; i < y; i++) {
     for (int j = 0; j < x; j++) {
       if (i == 0) {
@@ -54,15 +41,36 @@ Node*** InitNewTable() {
       temp_right = nullptr;
     }
   }
+  delete (temp_top);
+  delete (temp_bottom);
+  delete (temp_left);
+  delete (temp_right);
+}
+
+
+
+Node*** InitNewTable() {
+  Node*** node;
+  Node* temp_top = nullptr;
+  Node* temp_bottom = nullptr;
+  Node* temp_left = nullptr;
+  Node* temp_right = nullptr;
+
+  node = new Node**[y];
+
+  for (int i = 0; i < x; i++) {
+    node[i] = new Node*[x];
+  }
+  for (int i = 0; i < y; i++) {  // new node
+    for (int j = 0; j < x; j++) {
+      node[i][j] = new Node(-1, j, i);
+    }
+  }
   for (int i = 0; i < 2; i++) {
     for (int j = 0; j < 2; j++) {
       node[4 + i - 1][4 + j - 1]->SetColor(i ^ j);
     }
   }
-  delete (temp_top);
-  delete (temp_bottom);
-  delete (temp_left);
-  delete (temp_right);
   return node;
 }
 
@@ -87,6 +95,7 @@ int main(int argc, char** argv) {
 
   // node table init
   Node*** node_table = InitNewTable();
+  SortTable(node_table);
 
   Node_Print_table* NT = Node_Print_table::GetInstance(node_table, x, y);
   NT->Print();
@@ -113,14 +122,23 @@ int main(int argc, char** argv) {
   int color = 0;
   while (ip_x_ != 99) {
     std::cin >> ip_x_ >> ip_y_;
+	    if(ip_x_ ==-1 && ip_y_==-1){
+	      int cccc=-1;
+	  std::cout << "change color" << std::endl;
+	    std::cin >> ip_x_ >> ip_y_;
+  std::cout << "Change: " << node_table[ip_y_][ip_x_]->GetX() << ", " << node_table[ip_y_][ip_x_]->GetY() << "" << std::endl;
+	    std::cin >>cccc;
+	      node_table[ip_y_][ip_x_]->SetColor(cccc);
+	    NT->Print();
+	      continue;
+	    }
   std::cout << color << std::endl;
     color = !color;
     color = 0x1 & color;
     if (node_table[ip_y_][ip_x_]->GetColor() != -1) continue;
     node_table[ip_y_][ip_x_]->SetColor(color);
     node_table[ip_y_][ip_x_]->BFS();
-
-
+    SortTable(node_table);
 
     NT->Print();
   }
