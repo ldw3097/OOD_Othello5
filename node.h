@@ -9,11 +9,17 @@ class Node {
   const void SetColor(int color) ;
   int GetColor() const;
 
+  Node* GetNext(int dir) const;
+
   Node* GetLeft() const ;
   Node* GetRight() const ;
   Node* GetTop() const ;
   Node* GetBottom() const ;
+
   void BFS() const;
+  void DFS(int dir) const;
+  void SetDot() const;
+
   Node* Clone() const;
 
   int GetX() const;

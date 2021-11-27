@@ -41,7 +41,56 @@ int Node::GetY() const {
   return this->y_;
 }
 
+//0:left, 1:right, 2:top, 3:bottom
+Node* Node::GetNext(int dir) const {
+  if (dir == 0) {
+    return this->left_;
+  } else if (dir == 1) {
+    return this->right_;
+  } else if (dir == 2) {
+    return this->top_;
+  } else if (dir == 3) {
+    return this->bottom_;
+  }
+  return NULL;
+}
+void Node::SetDot() const {
+  this->DFS(0);
+  this->DFS(1);
+  this->DFS(2);
+  this->DFS(3);
+}
 
+void Node::DFS(int dir) const {
+  if(this->GetNext(dir) != nullptr) {
+    if(this->GetColor() != this->GetNext(dir)->GetColor() && this->GetNext(dir)->GetColor() != -1) {
+      Node* index = this->Clone()->GetNext(dir);
+      while (index->GetColor() != -1) {
+        if(index != this && index->GetColor() == this->GetColor()) {
+            index = this->Clone();
+	delete index; 
+	index = NULL;
+            this->GetNext(dir)->SetColor(this->GetColor());
+            this->GetNext(dir)->SetDot();
+            break;
+        }
+          if(index->GetNext(dir) == nullptr) break;
+          index = index->GetNext(dir);
+      }
+      index = this->Clone();
+      delete index;
+      index = NULL;
+    }
+  } 
+}
+
+
+
+
+
+
+
+//BFS는 SetDot으로 통일되었습니다. 이제 안씀
 void Node::BFS() const {
   std::cout << "~~~~" << this->x_ << ", " << this->y_ << "in~~~~" << std::endl;
 

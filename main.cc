@@ -137,7 +137,7 @@ int main(int argc, char** argv) {
     color = 0x1 & color;
     if (node_table[ip_y_][ip_x_]->GetColor() != -1) continue;
     node_table[ip_y_][ip_x_]->SetColor(color);
-    node_table[ip_y_][ip_x_]->BFS();
+    node_table[ip_y_][ip_x_]->SetDot();
     SortTable(node_table);
 
     NT->Print();
