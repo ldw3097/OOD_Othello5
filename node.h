@@ -12,6 +12,8 @@ class Node {
   const void SetColor(int color) ;
   int GetColor() const;
 
+  const void SetGuide(int guide);
+  int GetGuide() const;
 
   Node* GetLeft() const ;
   Node* GetRight() const ;
@@ -49,6 +51,8 @@ class Node {
 
   int x_=-1;
   int y_=-1;
+
+  int guide_ = -1;
   int color_ = -1; // -1:space, 0:filled, 1:empty
 };
 

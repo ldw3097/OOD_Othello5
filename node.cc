@@ -29,6 +29,13 @@ int Node::GetColor() const {
   return this->color_;
 }
 
+const void Node::SetGuide(int color) {
+  this->guide_ = color;
+}
+int Node::GetGuide() const {	
+  return this->guide_;
+}
+
 
 Node* Node::GetLeft() const  {
   return this->left_;

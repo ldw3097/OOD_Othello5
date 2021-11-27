@@ -3,23 +3,26 @@
 #include <iostream>
 #include <string>
 
-#define LU "\u250c"  // Left Up
-#define RU "\u2510"  // Right Up
-#define MU "\u252c"  // Mid Up
+#define LU "\u250c"  	// Left Up
+#define RU "\u2510"  	// Right Up
+#define MU "\u252c"  	// Mid Up
 
-#define LD "\u2514"  // Left Down
-#define RD "\u2518"  // Right Down
-#define MD "\u2534"  // Mid Down
+#define LD "\u2514"  	// Left Down
+#define RD "\u2518"  	// Right Down
+#define MD "\u2534"  	// Mid Down
 
-#define VL "\u2502"  // Vertical Line
-#define HL "\u2500"  // Horizon Line
+#define VL "\u2502"  	// Vertical Line
+#define HL "\u2500"  	// Horizon Line
 
-#define CR "\u253c"  // CRoss
+#define CR "\u253c" 	// CRoss
 
-#define SE " "  // Space Empty
+#define SE " "  		// Space Empty
 
-#define FD "\u25cf"  // Filled Dot
-#define ED "\u25cb"  // Empty Dot
+#define FD "\u25cf" 	// Filled Dot
+#define ED "\u25cb"  	// Empty Dot
+
+#define GF "\u2299"  	//Guide Filled dot
+#define GE "\u25CE"  	//Guide Empty dot
 
 const void Node_Print_table::Print() const {
   int x = this->x_;
@@ -52,8 +55,18 @@ const void Node_Print_table::Print() const {
 
       //공백 사이에 들어갈 문자 선택
       if (this->table_[i][j]->GetColor() == -1) {
-        line1_ += SE;
-       line1_ += SE;
+       //색이 지정되지 않고 가이드가 없으면공백
+       if(this->table_[i][j]->GetGuide() == -1){
+         line1_ += SE;
+         line1_ += SE; 
+       } else {
+         //색이 지정되지 않고 가이드가 있으면 해당 가이드 출력
+         if(this->table_[i][j]->GetGuide() == 0) {
+           line1_ += GF;
+         } else if(this->table_[i][j]->GetGuide() == 1) {
+           line1_ += GE;
+         }
+       }
       } else if (this->table_[i][j]->GetColor() == 0) {
         line1_ += FD;
       } else if (this->table_[i][j]->GetColor() == 1) {
