@@ -13,6 +13,10 @@ void SortTable(Node*** node) {
   Node* temp_bottom = nullptr;
   Node* temp_left = nullptr;
   Node* temp_right = nullptr;
+  Node* temp_top_left = nullptr;
+  Node* temp_top_right = nullptr;
+  Node* temp_bottom_left = nullptr;
+  Node* temp_bottom_right = nullptr;
 
   for (int i = 0; i < y; i++) {
     for (int j = 0; j < x; j++) {
@@ -20,31 +24,65 @@ void SortTable(Node*** node) {
         temp_top = nullptr;
       } else
         temp_top = node[i - 1][j];
+
       if (i == y - 1) {
         temp_bottom = nullptr;
       } else
         temp_bottom = node[i + 1][j];
+
       if (j == 0) {
         temp_left = nullptr;
       } else
         temp_left = node[i][j - 1];
+
       if (j == x - 1) {
         temp_right = nullptr;
       } else
         temp_right = node[i][j + 1];
 
-      node[i][j]->SetNode(temp_left, temp_right, temp_top, temp_bottom);
+
+      if (i == 0 || j == 0) {
+        temp_top_left = nullptr;
+      } else
+        temp_top_left = node[i - 1][j - 1];
+
+      if (i == 0 || j == x - 1) {
+        temp_top_right = nullptr;
+      } else
+        temp_top_right = node[i - 1][j + 1];
+
+      if (i == y - 1 || j == 0) {
+        temp_bottom_left = nullptr;
+      } else
+        temp_bottom_left = node[i + 1][j - 1];
+
+      if (i == y - 1 || j == x- 1) {
+        temp_bottom_right = nullptr;
+      } else
+        temp_bottom_right = node[i + 1][j + 1];
+
+
+
+      node[i][j]->SetNode(temp_left, temp_right, temp_top, temp_bottom, temp_top_left, temp_top_right, temp_bottom_left, temp_bottom_right);
       //포인터 청소
       temp_top = nullptr;
       temp_bottom = nullptr;
       temp_left = nullptr;
       temp_right = nullptr;
+      temp_top_left = nullptr;
+      temp_top_right = nullptr;
+      temp_bottom_left = nullptr;
+      temp_bottom_right = nullptr;
     }
   }
   delete (temp_top);
   delete (temp_bottom);
   delete (temp_left);
   delete (temp_right);
+  delete (temp_top_left);
+  delete (temp_top_right);
+  delete (temp_bottom_left);
+  delete (temp_bottom_right);
 }
 
 
@@ -138,7 +176,7 @@ int main(int argc, char** argv) {
     if (node_table[ip_y_][ip_x_]->GetColor() != -1) continue;
     node_table[ip_y_][ip_x_]->SetColor(color);
     node_table[ip_y_][ip_x_]->SetDot();
-    SortTable(node_table);
+//    SortTable(node_table);
 
     NT->Print();
   }

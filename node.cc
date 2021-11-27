@@ -11,6 +11,16 @@ const void Node::SetNode(Node* left, Node* right, Node* top, Node* bottom) {
   this->top_ = top;
   this->bottom_ = bottom;
 }
+const void Node::SetNode(Node* left, Node* right, Node* top, Node* bottom, Node* top_left, Node* top_right, Node* bottom_left, Node* bottom_right) {
+  this->left_ = left;
+  this->right_ = right;
+  this->top_ = top;
+  this->bottom_ = bottom;
+  this->top_left_ = top_left;
+  this->top_right_ = top_right;
+  this->bottom_left_ = bottom_left;
+  this->bottom_right_ = bottom_right;
+}
 
 const void Node::SetColor(int color) {
   this->color_ = color;
@@ -18,6 +28,8 @@ const void Node::SetColor(int color) {
 int Node::GetColor() const {	
   return this->color_;
 }
+
+
 Node* Node::GetLeft() const  {
   return this->left_;
 }
@@ -30,6 +42,23 @@ Node* Node::GetTop() const  {
 Node* Node::GetBottom() const {
   return this->bottom_;
 }
+
+
+Node* Node::GetTopLeft() const{
+  return this->top_left_;
+}
+Node* Node::GetTopRight() const {
+  return this->top_right_;
+}
+Node* Node::GetBottomLeft() const{
+  return this->bottom_left_;
+}
+Node* Node::GetBottomRight() const{
+  return this->bottom_right_;
+}
+
+
+
 Node* Node::Clone() const {
   return new Node(*this);
 }
@@ -41,7 +70,7 @@ int Node::GetY() const {
   return this->y_;
 }
 
-//0:left, 1:right, 2:top, 3:bottom
+//0:left, 1:right, 2:top, 3:bottom, 4:to
 Node* Node::GetNext(int dir) const {
   if (dir == 0) {
     return this->left_;
@@ -51,6 +80,14 @@ Node* Node::GetNext(int dir) const {
     return this->top_;
   } else if (dir == 3) {
     return this->bottom_;
+  } else if (dir == 4) {
+    return this->top_left_;
+  } else if (dir == 5) {
+    return this->top_right_;
+  } else if (dir == 6) {
+    return this->bottom_left_;
+  } else if (dir == 7) {
+    return this->bottom_right_;
   }
   return NULL;
 }
@@ -59,6 +96,10 @@ void Node::SetDot() const {
   this->DFS(1);
   this->DFS(2);
   this->DFS(3);
+  this->DFS(4);
+  this->DFS(5);
+  this->DFS(6);
+  this->DFS(7);
 }
 
 void Node::DFS(int dir) const {
@@ -71,7 +112,8 @@ void Node::DFS(int dir) const {
 	delete index; 
 	index = NULL;
             this->GetNext(dir)->SetColor(this->GetColor());
-            this->GetNext(dir)->SetDot();
+//          this->GetNext(dir)->SetDot();	모든 방향으로 반복
+            this->GetNext(dir)->DFS(dir);		//진행 방향으로 반복
             break;
         }
           if(index->GetNext(dir) == nullptr) break;
