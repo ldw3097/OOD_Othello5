@@ -50,6 +50,7 @@ void Node::BFS() const {
       Node* index1 = this->Clone()->GetLeft();
       while (index1->GetColor() != -1) {
         if(index1 != this && index1->GetColor() == this->GetColor()) {
+            index1 = this->Clone();
 	delete index1; 
 	index1 = NULL;
   std::cout << "change: " << this->GetLeft()->x_ << ", " << this->GetLeft()->y_ << "" << std::endl;
@@ -59,8 +60,8 @@ void Node::BFS() const {
         }
           if(index1->GetLeft() == nullptr) break;
           index1 = index1->GetLeft();
-          if(index1->GetLeft() == nullptr) break;
       }
+      index1 = this->Clone();
       delete index1;
       index1 = NULL;
     }
@@ -73,6 +74,7 @@ void Node::BFS() const {
       Node* index2 = this->Clone()->GetRight();
       while (index2->GetColor() != -1) {
         if(index2 != this && index2->GetColor() == this->GetColor()) {
+            index2 = this->Clone();
 	delete index2; 
 	index2 = NULL;
   std::cout << "change: " << this->GetRight()->x_ << ", " << this->GetRight()->y_ << "" << std::endl;
@@ -82,14 +84,16 @@ void Node::BFS() const {
         }
           if(index2->GetRight() == nullptr) break;
           index2 = index2->GetRight();
-          if(index2->GetRight() == nullptr) break;
       }
+            index2 = this->Clone();
       delete index2;
       index2 = NULL;
     }
   } 
   std::cout<< "exit R" << std::endl;
 
+////   
+////   반대편에 같은 색 돌의 위치가 가장자리라면 발동하지 않음.  
     
 //TOP
   if(this->GetTop() != nullptr) {
@@ -97,6 +101,7 @@ void Node::BFS() const {
       Node* index3 = this->Clone()->GetTop();
       while (index3->GetColor() != -1) {
         if(index3 != this && index3->GetColor() == this->GetColor()) {
+            index3 = this->Clone();
 	delete index3; 
 	index3 = NULL;
   std::cout << "change: " << this->GetTop()->x_ << ", " << this->GetTop()->y_ << "" << std::endl;
@@ -106,8 +111,8 @@ void Node::BFS() const {
         }
           if(index3->GetTop() == nullptr) break;
           index3 = index3->GetTop();
-          if(index3->GetTop() == nullptr) break;
       }
+            index3 = this->Clone();
       delete index3;
       index3 = NULL;
     }
@@ -120,6 +125,7 @@ void Node::BFS() const {
       Node* index4 = this->Clone()->GetBottom();
       while (index4->GetColor() != -1) {
         if(index4 != this && index4->GetColor() == this->GetColor()) {
+            index4 = this->Clone();
 	delete index4; 
 	index4 = NULL;
   std::cout << "change: " << this->GetBottom()->x_ << ", " << this->GetBottom()->y_ << "" << std::endl;
@@ -130,9 +136,9 @@ void Node::BFS() const {
   std::cout<< "12345" << std::endl;
           if(index4->GetBottom() == nullptr) break;
             index4 = index4->GetBottom();
-          if(index4->GetBottom() == nullptr) break;
 
       }
+            index4 = this->Clone();
       delete index4;
       index4 = NULL;
     }
@@ -171,4 +177,29 @@ std::cout<< "enter T" << std::endl;
       index3 = NULL;
     }
   }
+
+
+백업 21-11-27 14:46
+  if(this->GetLeft() != nullptr) {
+    if(this->GetColor() != this->GetLeft()->GetColor() && this->GetLeft()->GetColor() != -1) {
+      Node* index1 = this->Clone()->GetLeft();
+      while (index1->GetColor() != -1) {
+        if(index1 != this && index1->GetColor() == this->GetColor()) {
+            index1 = this->Clone();
+	delete index1; 
+	index1 = NULL;
+  std::cout << "change: " << this->GetLeft()->x_ << ", " << this->GetLeft()->y_ << "" << std::endl;
+            this->GetLeft()->SetColor(this->GetColor());
+            this->GetLeft()->BFS();
+            break;
+        }
+          if(index1->GetLeft() == nullptr) break;
+          index1 = index1->GetLeft();
+          if(index1->GetLeft() == nullptr) break;
+      }
+      index1 = this->Clone();
+      delete index1;
+      index1 = NULL;
+    }
+  } 
 */
