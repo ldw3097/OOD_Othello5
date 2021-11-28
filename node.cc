@@ -155,7 +155,7 @@ int Node::Condition(int origin_color) const {
 // 연속으로 자신의 돌을 만나지 않고
 // 놓을 돌과 자신 돌 사이가 상대 돌로만 이루어졌다면
 // 가능한 자리이므로 0 리턴
-  if ((flag == 1))
+  if ((flag == 1)&&(index->GetTop()->GetColor() != -1)&&(index->GetTop() != nullptr))
     return 0;
 // BOTTOM
   flag = 0;
@@ -171,7 +171,7 @@ int Node::Condition(int origin_color) const {
     }
     index = index->GetBottom();
   }
-  if (flag == 1)
+  if ((flag == 1)&&(index->GetBottom()->GetColor() != -1)&&(index->GetBottom() != nullptr))
     return 0;
 // LEFT
   flag = 0;
@@ -188,7 +188,7 @@ int Node::Condition(int origin_color) const {
     index = index->GetLeft();
   }
 
-  if (flag == 1)
+  if ((flag == 1)&&(index->GetLeft()->GetColor() != -1)&&(index->GetLeft() != nullptr))
     return 0;
 // RIGHT
   flag = 0;
@@ -204,7 +204,7 @@ int Node::Condition(int origin_color) const {
     }
     index = index->GetRight();
   }
-  if (flag == 1)
+  if ((flag == 1)&&(index->GetRight()->GetColor() != -1)&&(index->GetRight() != nullptr))
     return 0;
   else
     return 1;
