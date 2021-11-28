@@ -83,6 +83,14 @@ void SortTable(Node*** node) {
   delete (temp_top_right);
   delete (temp_bottom_left);
   delete (temp_bottom_right);
+  temp_top = NULL;
+  temp_bottom = NULL;
+  temp_left = NULL;
+  temp_right = NULL;
+  temp_top_left = NULL;
+  temp_top_right = NULL;
+  temp_bottom_left = NULL;
+  temp_bottom_right = NULL;
 }
 
 

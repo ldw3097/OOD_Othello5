@@ -67,6 +67,7 @@ const void Node_Print_table::Print() const {
            line1_ += GE;
          }
        }
+//wsl이 아니라면 FD, ED다음에 SE를 추가시키면 됩니다.
       } else if (this->table_[i][j]->GetColor() == 0) {
         line1_ += FD;
       } else if (this->table_[i][j]->GetColor() == 1) {
