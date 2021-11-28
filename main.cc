@@ -160,25 +160,38 @@ int main(int argc, char** argv) {
   int color = 0;
   while (ip_x_ != 99) {
     std::cin >> ip_x_ >> ip_y_;
-	    if(ip_x_ ==-1 && ip_y_==-1){
-	      int cccc=-1;
-	  std::cout << "change color" << std::endl;
-	    std::cin >> ip_x_ >> ip_y_;
-  std::cout << "Change: " << node_table[ip_y_][ip_x_]->GetX() << ", " << node_table[ip_y_][ip_x_]->GetY() << "" << std::endl;
-	    std::cin >>cccc;
-	      node_table[ip_y_][ip_x_]->SetColor(cccc);
-	    NT->Print();
-	      continue;
-	    }
-  std::cout << color << std::endl;
-    color = !color;
-    color = 0x1 & color;
+    if(ip_x_ ==-1 && ip_y_==-1){
+      int cccc=-1;
+      std::cout << "change color" << std::endl;
+      std::cin >> ip_x_ >> ip_y_;
+      std::cout << "Change: " << node_table[ip_y_][ip_x_]->GetX() << ", " << node_table[ip_y_][ip_x_]->GetY() << "" << std::endl;
+      std::cin >>cccc;
+      node_table[ip_y_][ip_x_]->SetColor(cccc);
+      NT->Print();
+      continue;
+    }
+    
+    std::cout << "현재 차례 : ";
+    if (color == 0)
+      std::cout << "선공" << std::endl;
+    else
+      std::cout << "후공" << std::endl;
+    
     if (node_table[ip_y_][ip_x_]->GetColor() != -1) continue;
+    if (node_table[ip_y_][ip_x_]->Condition(color) == 1) {
+// 조건 체크(놓으려는 돌과 자신 돌 사이에 상대 돌이 있어야 함)
+      std::cout << "유효하지 않은 위치입니다." << std::endl;
+      continue;
+    }
+    NT->Print();
     node_table[ip_y_][ip_x_]->SetColor(color);
     node_table[ip_y_][ip_x_]->SetDot();
 //    SortTable(node_table);
 
     NT->Print();
+// 조건에 맞지 않으면 차례가 바뀌어서는 안되므로 아래로 내림
+    color = !color;
+    color = 0x1&color;
   }
 
   

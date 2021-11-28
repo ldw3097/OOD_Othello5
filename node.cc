@@ -132,8 +132,83 @@ void Node::DFS(int dir) const {
     }
   } 
 }
+// 돌을 놓을 수 있는 조건 체크, 가능하면 0, 불가능이면 1 리턴
+int Node::Condition(int origin_color) const {
+  int condition_ = 1;
+  int flag = 0;	// 탐색 과정에서 사이에 상대 돌이 있었는지
+  Node* index = this->Clone();
+//TOP 방향 탐색
+//다음 TOP이 존재하는 경우 반복
+  while((index->GetTop() != nullptr)&&(index->GetTop()->GetColor() != -1)) {
+    if (origin_color != index->GetTop()->GetColor()) {
+// 다른 색, 즉 상대방 돌이 존재할 경우 플래그 세팅
+      flag = 1;
+      index = index->GetTop();
+      continue;
+    }
+    if (origin_color == index->GetTop()->GetColor()) {
+// 자신 돌을 만나면 반복 종료
+      break;
+    }
+    index = index->GetTop();
+  }
+// 연속으로 자신의 돌을 만나지 않고
+// 놓을 돌과 자신 돌 사이가 상대 돌로만 이루어졌다면
+// 가능한 자리이므로 0 리턴
+  if ((flag == 1))
+    return 0;
+// BOTTOM
+  flag = 0;
+  index = this->Clone();
+  while((index->GetBottom() != nullptr)&&(index->GetBottom()->GetColor() != -1)) {
+    if (origin_color != index->GetBottom()->GetColor()) {
+      flag = 1;
+      index = index->GetBottom();
+      continue;
+    }
+    if (origin_color == index->GetBottom()->GetColor()) {
+      break;
+    }
+    index = index->GetBottom();
+  }
+  if (flag == 1)
+    return 0;
+// LEFT
+  flag = 0;
+  index = this->Clone();
+  while((index->GetLeft() != nullptr)&&(index->GetLeft()->GetColor() != -1)) {
+    if (origin_color != index->GetLeft()->GetColor()) {
+      flag = 1;
+      index = index->GetLeft();
+      continue;
+    }
+    if (origin_color == index->GetLeft()->GetColor()) {
+      break;
+    }
+    index = index->GetLeft();
+  }
 
-
+  if (flag == 1)
+    return 0;
+// RIGHT
+  flag = 0;
+  index = this->Clone();
+  while((index->GetRight() != nullptr)&&(index->GetRight()->GetColor() != -1)) {
+    if (origin_color != index->GetRight()->GetColor()) {
+      flag = 1;
+      index = index->GetRight();
+      continue;
+    }
+    if (origin_color == index->GetRight()->GetColor()) {
+      break;
+    }
+    index = index->GetRight();
+  }
+  if (flag == 1)
+    return 0;
+  else
+    return 1;
+}
 
 
 

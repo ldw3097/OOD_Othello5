@@ -34,6 +34,7 @@ class Node {
 
   void SetDot() const;
   void DFS(int dir) const;
+  int Condition(int origin_color) const;
 
 
   void BFS() const;
