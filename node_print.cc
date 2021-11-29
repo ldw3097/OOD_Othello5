@@ -24,7 +24,7 @@
 #define GF "\u2299"  	//Guide Filled dot
 #define GE "\u25CE"  	//Guide Empty dot
 
-const void Node_Print_table::Print(const Board board) {
+const void Node_Print_table::Print(Board &board) {
   const int x = board.x();
   const int y = board.y();
   std::string line1_ = "  ";

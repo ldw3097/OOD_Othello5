@@ -20,3 +20,6 @@ main.o : main.cc
 
 main : main.o print.o node.o node_print.o Board.o
 	g++ $(std) $^ -o $@ -g
+
+clean :
+	rm -f *.o main

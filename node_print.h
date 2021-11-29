@@ -7,7 +7,7 @@ class Node_Print_table {
  public:
   Node_Print_table();
   static Node_Print_table* GetInstance();
-  const void Print(const Board board) ;
+  const void Print( Board &board) ;
  private:
   static Node_Print_table* instance_;
 };
