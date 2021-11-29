@@ -95,6 +95,7 @@ bool Board::IsValidInput(int y, int x, int color){  // 올바른 위치인지 �
 
 void Board::PlaceStone(int y, int x, int color){
   board_[y][x]->SetColor(color);
+  std::cout << "place check:" << board_[y][x]->GetColor() <<std::endl;
   //std::cout << y<<" " << x << " " << color <<std::endl;
   //board_[y][x]->SetDot();
 }

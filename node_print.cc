@@ -47,15 +47,14 @@ const void Node_Print_table::Print(const Board board) {
     }
   }
   std::cout << line2_ << std::endl;
-
   for (int i = 0; i < y; i++) {
     line1_ = " " + std::to_string(i) + " " + VL;
     for (int j = 0; j < x; j++) {
       line1_ += SE;
-
       //공백 사이에 들어갈 문자 선택
       if (board[i][j]->GetColor() == -1) {
        //색이 지정되지 않고 가이드가 없으면공백
+       
        if(board[i][j]->GetGuide() == -1){
          line1_ += SE;
          line1_ += SE; 
@@ -67,6 +66,7 @@ const void Node_Print_table::Print(const Board board) {
            line1_ += GE;
          }
        }
+       
 //wsl이 아니라면 FD, ED다음에 SE를 추가시키면 됩니다.
       } else if (board[i][j]->GetColor() == 0) {  // 백돌
         line1_ += FD;
@@ -78,6 +78,7 @@ const void Node_Print_table::Print(const Board board) {
       line1_ += VL;
     }
     std::cout << line1_ << std::endl;
+    
     line2_ = "   ";
     if (i < y - 1) {
       line2_ += VL;

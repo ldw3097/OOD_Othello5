@@ -21,7 +21,9 @@ bool OneGame() {
   int color = 1;  // 흑돌
   int ip_x_, ip_y_;
   while (1) {  // TODO: 게임 끝 검사를 조건문으로 하기
+    
     NT->Print(board);
+    NT->Print(board); 
     if (color) {
       cout << "흑돌(\u25cb)의 차례입니다. 돌을놓을 위치를 y x 양식으로 입력해주세요" << endl;
     } else
