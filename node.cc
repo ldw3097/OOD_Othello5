@@ -1,7 +1,7 @@
 #include "node.h"
 #include <iostream>
 Node::Node(int color, int x, int y):
-  color_(color), left_(nullptr), right_(nullptr), top_(nullptr), bottom_(nullptr), x_(x), y_(y) {}
+  color_(color), x_(x), y_(y) {}
 
 Node::Node(){};
 
@@ -109,6 +109,7 @@ void Node::SetDot() const {
   this->DFS(7);
 }
 
+//0:left, 1:right, 2:top, 3:bottom, 4:to
 void Node::DFS(int dir) const {
   if(this->GetNext(dir) != nullptr) {
     if(this->GetColor() != this->GetNext(dir)->GetColor() && this->GetNext(dir)->GetColor() != -1) {

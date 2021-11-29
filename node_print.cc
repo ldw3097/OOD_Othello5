@@ -18,15 +18,15 @@
 
 #define SE " "  		// Space Empty
 
-#define FD "\u25cf" 	// Filled Dot
-#define ED "\u25cb"  	// Empty Dot
+#define FD "\u25cf" 	// Filled Dot(white)
+#define ED "\u25cb"  	// Empty Dot(black)
 
 #define GF "\u2299"  	//Guide Filled dot
 #define GE "\u25CE"  	//Guide Empty dot
 
-const void Node_Print_table::Print() const {
-  int x = this->x_;
-  int y = this->y_;
+const void Node_Print_table::Print(const Board board) {
+  const int x = board.x();
+  const int y = board.y();
   std::string line1_ = "  ";
   std::string line2_ = "   ";
 
@@ -54,24 +54,26 @@ const void Node_Print_table::Print() const {
       line1_ += SE;
 
       //공백 사이에 들어갈 문자 선택
-      if (this->table_[i][j]->GetColor() == -1) {
+      if (board[i][j]->GetColor() == -1) {
        //색이 지정되지 않고 가이드가 없으면공백
-       if(this->table_[i][j]->GetGuide() == -1){
+       if(board[i][j]->GetGuide() == -1){
          line1_ += SE;
          line1_ += SE; 
        } else {
          //색이 지정되지 않고 가이드가 있으면 해당 가이드 출력
-         if(this->table_[i][j]->GetGuide() == 0) {
+         if(board[i][j]->GetGuide() == 0) {
            line1_ += GF;
-         } else if(this->table_[i][j]->GetGuide() == 1) {
+         } else if(board[i][j]->GetGuide() == 1) {
            line1_ += GE;
          }
        }
 //wsl이 아니라면 FD, ED다음에 SE를 추가시키면 됩니다.
-      } else if (this->table_[i][j]->GetColor() == 0) {
+      } else if (board[i][j]->GetColor() == 0) {  // 백돌
         line1_ += FD;
-      } else if (this->table_[i][j]->GetColor() == 1) {
+        line1_ += SE;
+      } else if (board[i][j]->GetColor() == 1) {  // 흑돌
         line1_ += ED;
+        line1_ += SE;
       }
       line1_ += VL;
     }
@@ -106,12 +108,11 @@ const void Node_Print_table::Print() const {
 
 Node_Print_table* Node_Print_table::instance_ = NULL;
 
-Node_Print_table::Node_Print_table(Node*** table, int x, int y)
-    : table_(table), x_(x), y_(y) {}
+Node_Print_table::Node_Print_table(){}
 
-Node_Print_table* Node_Print_table::GetInstance(Node*** table, int x, int y) {
+Node_Print_table* Node_Print_table::GetInstance() {
   if (instance_ == NULL) {
-    instance_ = new Node_Print_table(table, x, y);
+    instance_ = new Node_Print_table();
   }
   return instance_;
 }
