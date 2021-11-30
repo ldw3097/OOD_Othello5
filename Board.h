@@ -1,6 +1,7 @@
 #ifndef BOARD_H
 #define BOARD_H
 #include "node.h"
+#include <string>
 
 class Board {
  public:
@@ -15,6 +16,8 @@ class Board {
   void SortTable();
   bool IsValidInput(int y, int x, int color);
   void PlaceStone(int y, int x, int color);
+  int IsPass(int color);
+  std::string Winner();
   ~Board();
  private:
   Node*** board_;

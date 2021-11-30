@@ -91,6 +91,8 @@ bool Board::IsValidInput(int y, int x, int color){  // 올바른 위치인지 �
     return false;
   }
   if ((this->x_ > x)&&(this->y_ > y)) {   //보드판 내의 좌표인 경우
+    if (board_[y][x]->GetColor() != -1)  // 이미 돌이 존재하는 곳
+      return false;
 // 게임 규칙에 따른 위치 조건
     if (board_[y][x]->Condition(color) == 0)
       return true;
@@ -105,6 +107,56 @@ bool Board::IsValidInput(int y, int x, int color){  // 올바른 위치인지 �
 void Board::PlaceStone(int y, int x, int color){
   board_[y][x]->SetColor(color);
   board_[y][x]->SetDot();
+}
+
+int Board::IsPass(int color) {
+  // 보드 전체를 돌며 종료/패스 조건 체크
+  // 현재 인자로 들어온 색은 이미 놓였으니
+  // 다음 색을 놓을 수 있는지 체크
+  for (int i = 0; i < this->x_; i++){
+    for (int j = 0; j < this->y_; j++){
+      if (board_[j][i]->GetColor() == -1){
+        if (board_[j][i]->Condition(!color) == 0){
+          return 0;
+        }
+      }
+    }
+  }
+  if (!color == 1)
+    std::cout << "흑돌을 놓을 수 있는 곳이 없습니다. 턴을 넘깁니다" << std::endl;
+  else
+    std::cout << "백돌을 놓을 수 있는 곳이 없습니다. 턴을 넘깁니다" << std::endl;
+  // 인자로 들어온 색의 돌을 놓고, 그 다음 색이 놓을 수 없을 때
+  // 턴을 넘긴 후에 자신도 놓을 수 있는지 체크
+  for (int i = 0; i < this->x_; i++){
+    for (int j = 0; j < this->y_; j++){
+      if (board_[j][i]->GetColor() == -1){
+        if (board_[j][i]->Condition(color) == 0){
+          return 2;
+        }
+      }
+    }
+  }
+  std::cout << "두 플레이어 모두 놓을 수 있는 곳이 없습니다." << std::endl;
+  std::cout << "게임을 종료합니다." << std::endl;
+  return 1;
+}
+
+std::string Board::Winner() {
+  int ED_count_ = 0; // 흑돌 수
+  int FD_count_ = 0; // 백돌 수
+  for (int i = 0; i < this->x_; i++){
+    for (int j = 0; j < this->y_; j++){
+      if (board_[j][i]->GetColor() == 1)
+        ED_count_++;
+      else
+        FD_count_++;
+    }
+  }
+  if (ED_count_ == FD_count_)
+    return "무승부";
+  else
+    return (ED_count_ > FD_count_) ? "흑돌 승" : "백돌 승";
 }
 
 Board::~Board(){

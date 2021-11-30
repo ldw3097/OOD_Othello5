@@ -135,30 +135,40 @@ void Node::DFS(int dir) const {
 }
 // 돌을 놓을 수 있는 조건 체크, 가능하면 0, 불가능이면 1 리턴
 int Node::Condition(int origin_color) const {
-  int condition_ = 1;
   int flag = 0;	// 탐색 과정에서 사이에 상대 돌이 있었는지
   Node* index = this->Clone();
+  Node* origin_node = index;
 //TOP 방향 탐색
 //다음 TOP이 존재하는 경우 반복
-  while((index->GetTop() != nullptr)&&(index->GetTop()->GetColor() != -1)) {
-    if (origin_color != index->GetTop()->GetColor()) {
+  for (int i = 0; i < 8; i++){
+    index = origin_node->GetNext(i);
+    flag = 0; //이전 방향에서의 플래그는 초기화
+    while((index != nullptr)) {  
+      if ((index->GetColor() == -1))
+        break;
+      if (origin_color != index->GetColor()) {
 // 다른 색, 즉 상대방 돌이 존재할 경우 플래그 세팅
-      flag = 1;
-      index = index->GetTop();
-      continue;
-    }
-    if (origin_color == index->GetTop()->GetColor()) {
+        flag = 1;
+        index = index->GetNext(i);
+        continue;
+      }
+      if (origin_color == index->GetColor()) {
 // 자신 돌을 만나면 반복 종료
       break;
+      }
+      index = index->GetNext(i);
     }
-    index = index->GetTop();
-  }
+
+    if ((index) == nullptr)
+        continue;
 // 연속으로 자신의 돌을 만나지 않고
 // 놓을 돌과 자신 돌 사이가 상대 돌로만 이루어졌다면
 // 가능한 자리이므로 0 리턴
-  if ((flag == 1)&&(index->GetTop()->GetColor() != -1)&&(index->GetTop() != nullptr))
-    return 0;
-// BOTTOM
+    if ((flag == 1)&&(index->GetColor() != -1)&&(index != nullptr))
+      return 0;
+  }
+  return 1;
+/* BOTTOM
   flag = 0;
   index = this->Clone();
   while((index->GetBottom() != nullptr)&&(index->GetBottom()->GetColor() != -1)) {
@@ -273,172 +283,5 @@ int Node::Condition(int origin_color) const {
   if ((flag == 1)&&(index->GetBottomRight()->GetColor() != -1)&&(index->GetBottomRight() != nullptr))
     return 0;
   else
-    return 1;
+    return 1;*/
 }
-
-
-
-
-
-//BFS는 SetDot으로 통일되었습니다. 이제 안씀
-void Node::BFS() const {
-  std::cout << "~~~~" << this->x_ << ", " << this->y_ << "in~~~~" << std::endl;
-
-  if(this->GetLeft() != nullptr) {
-    if(this->GetColor() != this->GetLeft()->GetColor() && this->GetLeft()->GetColor() != -1) {
-      Node* index1 = this->Clone()->GetLeft();
-      while (index1->GetColor() != -1) {
-        if(index1 != this && index1->GetColor() == this->GetColor()) {
-            index1 = this->Clone();
-	delete index1; 
-	index1 = NULL;
-  std::cout << "change: " << this->GetLeft()->x_ << ", " << this->GetLeft()->y_ << "" << std::endl;
-            this->GetLeft()->SetColor(this->GetColor());
-            this->GetLeft()->BFS();
-            break;
-        }
-          if(index1->GetLeft() == nullptr) break;
-          index1 = index1->GetLeft();
-      }
-      index1 = this->Clone();
-      delete index1;
-      index1 = NULL;
-    }
-  } 
-  std::cout<< "exit L" << std::endl;
-
-//RIGHT
-  if(this->GetRight() != nullptr) {
-    if(this->GetColor() != this->GetRight()->GetColor() && this->GetRight()->GetColor() != -1) {
-      Node* index2 = this->Clone()->GetRight();
-      while (index2->GetColor() != -1) {
-        if(index2 != this && index2->GetColor() == this->GetColor()) {
-            index2 = this->Clone();
-	delete index2; 
-	index2 = NULL;
-  std::cout << "change: " << this->GetRight()->x_ << ", " << this->GetRight()->y_ << "" << std::endl;
-            this->GetRight()->SetColor(this->GetColor());
-            this->GetRight()->BFS();
-            break;
-        }
-          if(index2->GetRight() == nullptr) break;
-          index2 = index2->GetRight();
-      }
-            index2 = this->Clone();
-      delete index2;
-      index2 = NULL;
-    }
-  } 
-  std::cout<< "exit R" << std::endl;
-
-////   
-////   반대편에 같은 색 돌의 위치가 가장자리라면 발동하지 않음.  
-    
-//TOP
-  if(this->GetTop() != nullptr) {
-    if(this->GetColor() != this->GetTop()->GetColor() && this->GetTop()->GetColor() != -1) {
-      Node* index3 = this->Clone()->GetTop();
-      while (index3->GetColor() != -1) {
-        if(index3 != this && index3->GetColor() == this->GetColor()) {
-            index3 = this->Clone();
-	delete index3; 
-	index3 = NULL;
-  std::cout << "change: " << this->GetTop()->x_ << ", " << this->GetTop()->y_ << "" << std::endl;
-            this->GetTop()->SetColor(this->GetColor());
-            this->GetTop()->BFS();
-            break;
-        }
-          if(index3->GetTop() == nullptr) break;
-          index3 = index3->GetTop();
-      }
-            index3 = this->Clone();
-      delete index3;
-      index3 = NULL;
-    }
-  } 
-
-  std::cout<< "exit T" << std::endl;
-//BOTTOM
-  if(this->GetBottom() != nullptr) {
-    if(this->GetColor() != this->GetBottom()->GetColor() && this->GetBottom()->GetColor() != -1) {
-      Node* index4 = this->Clone()->GetBottom();
-      while (index4->GetColor() != -1) {
-        if(index4 != this && index4->GetColor() == this->GetColor()) {
-            index4 = this->Clone();
-	delete index4; 
-	index4 = NULL;
-  std::cout << "change: " << this->GetBottom()->x_ << ", " << this->GetBottom()->y_ << "" << std::endl;
-            this->GetBottom()->SetColor(this->GetColor());
-            this->GetBottom()->BFS();
-            break;
-        }
-  std::cout<< "12345" << std::endl;
-          if(index4->GetBottom() == nullptr) break;
-            index4 = index4->GetBottom();
-
-      }
-            index4 = this->Clone();
-      delete index4;
-      index4 = NULL;
-    }
-  } 
-  std::cout<< "exit B" << std::endl;
-  std::cout << "~~~~" << this->x_ << ", " << this->y_ << "out~~~~" << std::endl;
-}
-/*          Node* temp = index4->Clone();
-          index4 = NULL;
-          delete temp;
-          temp = NULL;*/
-
-/*
-백업 21-11-26 21:44
-
-  if(this->GetTop() != nullptr) {
-    if(this->GetColor() != this->GetTop()->GetColor() && this->GetTop()->GetColor() != -1) {
-std::cout<< "enter T" << std::endl;
-      const Node* index3 = this->Clone()->GetTop();
-      while (index3->GetColor() != -1) {
-        if(index3 != this && index3->GetColor() == this->GetColor()) {
-            delete index3;
-            index3 = NULL;
-
-  std::cout << "change: " << this->GetTop()->x_ << ", " << this->GetTop()->y_ << "" << std::endl;
-            this->GetTop()->SetColor(this->GetColor());
-            this->GetTop()->BFS();
-            break;
-        } else {
-          if(index3->GetTop() == nullptr) break;
-          index3 = index3->GetTop();
-          if(index3->GetTop() == nullptr) break;
-        }
-      }
-      delete index3;
-      index3 = NULL;
-    }
-  }
-
-
-백업 21-11-27 14:46
-  if(this->GetLeft() != nullptr) {
-    if(this->GetColor() != this->GetLeft()->GetColor() && this->GetLeft()->GetColor() != -1) {
-      Node* index1 = this->Clone()->GetLeft();
-      while (index1->GetColor() != -1) {
-        if(index1 != this && index1->GetColor() == this->GetColor()) {
-            index1 = this->Clone();
-	delete index1; 
-	index1 = NULL;
-  std::cout << "change: " << this->GetLeft()->x_ << ", " << this->GetLeft()->y_ << "" << std::endl;
-            this->GetLeft()->SetColor(this->GetColor());
-            this->GetLeft()->BFS();
-            break;
-        }
-          if(index1->GetLeft() == nullptr) break;
-          index1 = index1->GetLeft();
-          if(index1->GetLeft() == nullptr) break;
-      }
-      index1 = this->Clone();
-      delete index1;
-      index1 = NULL;
-    }
-  } 
-*/

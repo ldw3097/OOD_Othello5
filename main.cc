@@ -22,7 +22,6 @@ bool OneGame() {
   int color = 1;  // 흑돌
   int ip_x_, ip_y_;
   while (1) {  // TODO: 게임 끝 검사를 조건문으로 하기
-
     NT->Print(board);
     if (color) {
       cout << "흑돌(\u25cb)의 차례입니다. 돌을 놓을 위치를 x y 양식으로 "
@@ -38,9 +37,20 @@ bool OneGame() {
       cin >> ip_x_ >> ip_y_;
     }
     board.PlaceStone(ip_y_, ip_x_, color);
-
-    color = !color;
+    // if 안에서 부르게 되면 호출 순서가 꼬여서 밖에서 호출
+    int ispass_ = board.IsPass(color);
+    if (ispass_ == 1) { // 모두 놓을 곳 없는 상태
+      break;
+    }
+    else if (ispass_ == 2){   // 한 턴만 넘어갈 때
+      continue;
+    }
+    else {  // 모두 가능할 때
+      color = !color;
+    }
   }
+  // 돌 수 세기
+  cout << board.Winner() << endl;
 
   cout << "다시 하시겠습니까? (1 : 다시하기, 0 : 그만하기)" << endl;
   bool re;
