@@ -87,10 +87,19 @@ void Board::SortTable() {
 }
 
 bool Board::IsValidInput(int y, int x, int color){  // 올바른 위치인지 검사
-  
-  
-  
-  return 1;
+  if ((x < 0)||(y < 0)) {   //입력 좌표가 음수인 경우
+    return false;
+  }
+  if ((this->x_ > x)&&(this->y_ > y)) {   //보드판 내의 좌표인 경우
+// 게임 규칙에 따른 위치 조건
+    if (board_[y][x]->Condition(color) == 0)
+      return true;
+    else
+      return false;
+  }
+  else {  //보드판 밖의 좌표인 경우
+    return false;
+  }
 }
 
 void Board::PlaceStone(int y, int x, int color){

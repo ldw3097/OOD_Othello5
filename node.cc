@@ -207,6 +207,71 @@ int Node::Condition(int origin_color) const {
   }
   if ((flag == 1)&&(index->GetRight()->GetColor() != -1)&&(index->GetRight() != nullptr))
     return 0;
+
+// TOPLEFT
+  flag = 0;
+  index = this->Clone();
+  while((index->GetTopLeft() != nullptr)&&(index->GetTopLeft()->GetColor() != -1)) {
+    if (origin_color != index->GetTopLeft()->GetColor()) {
+      flag = 1;
+      index = index->GetTopLeft();
+      continue;
+    }
+    if (origin_color == index->GetTopLeft()->GetColor()) {
+      break;
+    }
+    index = index->GetTopLeft();
+  }
+  if ((flag == 1)&&(index->GetTopLeft()->GetColor() != -1)&&(index->GetTopLeft() != nullptr))
+    return 0;
+// TOPRIGHT
+  flag = 0;
+  index = this->Clone();
+  while((index->GetTopRight() != nullptr)&&(index->GetTopRight()->GetColor() != -1)) {
+    if (origin_color != index->GetTopRight()->GetColor()) {
+      flag = 1;
+      index = index->GetTopRight();
+      continue;
+    }
+    if (origin_color == index->GetTopRight()->GetColor()) {
+      break;
+    }
+    index = index->GetTopRight();
+  }
+  if ((flag == 1)&&(index->GetTopRight()->GetColor() != -1)&&(index->GetTopRight() != nullptr))
+    return 0;
+// BOTTOMLEFT
+  flag = 0;
+  index = this->Clone();
+  while((index->GetBottomLeft() != nullptr)&&(index->GetBottomLeft()->GetColor() != -1)) {
+    if (origin_color != index->GetBottomLeft()->GetColor()) {
+      flag = 1;
+      index = index->GetBottomLeft();
+      continue;
+    }
+    if (origin_color == index->GetBottomLeft()->GetColor()) {
+      break;
+    }
+    index = index->GetBottomLeft();
+  }
+  if ((flag == 1)&&(index->GetBottomLeft()->GetColor() != -1)&&(index->GetBottomLeft() != nullptr))
+    return 0;
+  // BOTTOMRIGHT
+  flag = 0;
+  index = this->Clone();
+  while((index->GetBottomRight() != nullptr)&&(index->GetBottomRight()->GetColor() != -1)) {
+    if (origin_color != index->GetBottomRight()->GetColor()) {
+      flag = 1;
+      index = index->GetBottomRight();
+      continue;
+    }
+    if (origin_color == index->GetBottomRight()->GetColor()) {
+      break;
+    }
+    index = index->GetBottomRight();
+  }
+  if ((flag == 1)&&(index->GetBottomRight()->GetColor() != -1)&&(index->GetBottomRight() != nullptr))
+    return 0;
   else
     return 1;
 }

@@ -13,9 +13,9 @@ bool OneGame() {
   using std::cin;
   using std::cout;
   using std::endl;
-  cout << "사용할 보드의 크기를 y x 양식으로 입력해주세요" << endl;
+  cout << "사용할 보드의 크기를 x y 양식으로 입력해주세요" << endl;
   int y, x;
-  cin >> y >> x;
+  cin >> x >> y;
   Board board(y, x);
   Node_Print_table* NT = Node_Print_table::GetInstance();
 
@@ -25,16 +25,18 @@ bool OneGame() {
 
     NT->Print(board);
     if (color) {
-      cout << "흑돌(\u25cb)의 차례입니다. 돌을놓을 위치를 y x 양식으로 "
+      cout << "흑돌(\u25cb)의 차례입니다. 돌을 놓을 위치를 x y 양식으로 "
               "입력해주세요"
            << endl;
     } else
-      cout << "백돌(\u25cf)의 차례입니다. 돌을놓을 위치를 y x 양식으로 "
+      cout << "백돌(\u25cf)의 차례입니다. 돌을 놓을 위치를 x y 양식으로 "
               "입력해주세요"
            << endl;
-    do {
-      cin >> ip_y_ >> ip_x_;
-    } while (!board.IsValidInput(ip_y_, ip_x_, color));
+      cin >> ip_x_ >> ip_y_;
+    while (!board.IsValidInput(ip_y_, ip_x_, color)) {
+      cout << "해당 위치에는 놓을 수 없습니다. 다시 입력하세요" << endl;
+      cin >> ip_x_ >> ip_y_;
+    }
     board.PlaceStone(ip_y_, ip_x_, color);
 
     color = !color;
