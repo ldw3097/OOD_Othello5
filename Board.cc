@@ -13,7 +13,7 @@ Board::Board(int y, int x) : y_(y), x_(x) {
   }
   for (int i = 0; i < 2; i++) {
     for (int j = 0; j < 2; j++) {
-      board_[4 + i - 1][4 + j - 1]->SetColor(i ^ j);
+      board_[x/2 + i -1][y/2 + j -1]->SetColor(i ^ j);
     }
   }
   SortTable();

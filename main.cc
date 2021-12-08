@@ -13,9 +13,14 @@ bool OneGame() {
   using std::cin;
   using std::cout;
   using std::endl;
-  cout << "사용할 보드의 크기를 x y 양식으로 입력해주세요" << endl;
+  cout << "사용할 보드의 크기를 x * x 양식으로 입력해주세요" << endl;
+  cout << "보드의 최소 크기는 3 * 3 입니다." << endl;
   int y, x;
   cin >> x >> y;
+  while((x!=y)||(x < 3)||(y <3)){
+    cout << "잘못된 입력입니다. 다시 입력해주세요." << endl;
+    cin >> x >> y;
+  }
   Board board(y, x);
   Node_Print_table* NT = Node_Print_table::GetInstance();
 
