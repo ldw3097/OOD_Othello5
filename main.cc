@@ -50,7 +50,7 @@ bool OneGame() {
     }
   }
   // 돌 수 세기
-  cout << board.Winner() << endl;
+  board.Winner();
 
   cout << "다시 하시겠습니까? (1 : 다시하기, 0 : 그만하기)" << endl;
   bool re;

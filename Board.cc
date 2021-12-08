@@ -142,21 +142,28 @@ int Board::IsPass(int color) {
   return 1;
 }
 
-std::string Board::Winner() {
+void Board::Winner() {
   int ED_count_ = 0; // 흑돌 수
   int FD_count_ = 0; // 백돌 수
   for (int i = 0; i < this->x_; i++){
     for (int j = 0; j < this->y_; j++){
       if (board_[j][i]->GetColor() == 1)
         ED_count_++;
-      else
+      else if(board_[j][i]->GetColor() == 0)
         FD_count_++;
+      else
+        continue;
     }
   }
   if (ED_count_ == FD_count_)
-    return "무승부";
+    std::cout << ED_count_ << " : " << FD_count_ << ", 무승부" << std::endl;
   else
-    return (ED_count_ > FD_count_) ? "흑돌 승" : "백돌 승";
+    if (ED_count_ > FD_count_){
+      std::cout << ED_count_ << " : " << FD_count_ << ", 흑돌 승" << std::endl;
+    }
+    else {
+      std::cout << ED_count_ << " : " << FD_count_ << ", 백돌 승" << std::endl;
+    }
 }
 
 Board::~Board(){

@@ -17,7 +17,7 @@ class Board {
   bool IsValidInput(int y, int x, int color);
   void PlaceStone(int y, int x, int color);
   int IsPass(int color);
-  std::string Winner();
+  void Winner();
   ~Board();
  private:
   Node*** board_;
