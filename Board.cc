@@ -1,4 +1,5 @@
 #include "Board.h"
+
 #include <iostream>
 
 Board::Board(int y, int x) : y_(y), x_(x) {
@@ -6,14 +7,14 @@ Board::Board(int y, int x) : y_(y), x_(x) {
   for (int i = 0; i < y; i++) {
     board_[i] = new Node*[x];
   }
-  for (int i = 0; i < y; i++) {  
+  for (int i = 0; i < y; i++) {
     for (int j = 0; j < x; j++) {
       board_[i][j] = new Node(-1, j, i);
     }
   }
   for (int i = 0; i < 2; i++) {
     for (int j = 0; j < 2; j++) {
-      board_[x/2 + i -1][y/2 + j -1]->SetColor(i ^ j);
+      board_[x / 2 + i - 1][y / 2 + j - 1]->SetColor(i ^ j);
     }
   }
   SortTable();
@@ -21,7 +22,7 @@ Board::Board(int y, int x) : y_(y), x_(x) {
 
 Node*** Board::board() { return board_; }
 
-const int Board::y() const  { return y_; }
+const int Board::y() const { return y_; }
 
 const int Board::x() const { return x_; }
 
@@ -86,25 +87,24 @@ void Board::SortTable() {
   }
 }
 
-bool Board::IsValidInput(int y, int x, int color){  // 올바른 위치인지 검사
-  if ((x < 0)||(y < 0)) {   //입력 좌표가 음수인 경우
+bool Board::IsValidInput(int y, int x, int color) {  // 올바른 위치인지 검사
+  if ((x < 0) || (y < 0)) {  //입력 좌표가 음수인 경우
     return false;
   }
-  if ((this->x_ > x)&&(this->y_ > y)) {   //보드판 내의 좌표인 경우
-    if (board_[y][x]->GetColor() != -1)  // 이미 돌이 존재하는 곳
+  if ((this->x_ > x) && (this->y_ > y)) {  //보드판 내의 좌표인 경우
+    if (board_[y][x]->GetColor() != -1)    // 이미 돌이 존재하는 곳
       return false;
-// 게임 규칙에 따른 위치 조건
+    // 게임 규칙에 따른 위치 조건
     if (board_[y][x]->Condition(color) == 0)
       return true;
     else
       return false;
-  }
-  else {  //보드판 밖의 좌표인 경우
+  } else {  //보드판 밖의 좌표인 경우
     return false;
   }
 }
 
-void Board::PlaceStone(int y, int x, int color){
+void Board::PlaceStone(int y, int x, int color) {
   board_[y][x]->SetColor(color);
   board_[y][x]->SetDot();
 }
@@ -113,43 +113,45 @@ int Board::IsPass(int color) {
   // 보드 전체를 돌며 종료/패스 조건 체크
   // 현재 인자로 들어온 색은 이미 놓였으니
   // 다음 색을 놓을 수 있는지 체크
-  for (int i = 0; i < this->x_; i++){
-    for (int j = 0; j < this->y_; j++){
-      if (board_[j][i]->GetColor() == -1){
-        if (board_[j][i]->Condition(!color) == 0){
+  for (int i = 0; i < this->x_; i++) {
+    for (int j = 0; j < this->y_; j++) {
+      if (board_[j][i]->GetColor() == -1) {
+        if (board_[j][i]->Condition(!color) == 0) {
           return 0;
         }
       }
     }
   }
   if (!color == 1)
-    std::cout << "흑돌을 놓을 수 있는 곳이 없습니다. 턴을 넘깁니다" << std::endl;
+    std::cout << "흑돌을 놓을 수 있는 곳이 없습니다. 턴을 넘깁니다"
+              << std::endl;
   else
-    std::cout << "백돌을 놓을 수 있는 곳이 없습니다. 턴을 넘깁니다" << std::endl;
+    std::cout << "백돌을 놓을 수 있는 곳이 없습니다. 턴을 넘깁니다"
+              << std::endl;
   // 인자로 들어온 색의 돌을 놓고, 그 다음 색이 놓을 수 없을 때
   // 턴을 넘긴 후에 자신도 놓을 수 있는지 체크
-  for (int i = 0; i < this->x_; i++){
-    for (int j = 0; j < this->y_; j++){
-      if (board_[j][i]->GetColor() == -1){
-        if (board_[j][i]->Condition(color) == 0){
+  for (int i = 0; i < this->x_; i++) {
+    for (int j = 0; j < this->y_; j++) {
+      if (board_[j][i]->GetColor() == -1) {
+        if (board_[j][i]->Condition(color) == 0) {
           return 2;
         }
       }
     }
   }
   std::cout << "두 플레이어 모두 놓을 수 있는 곳이 없습니다." << std::endl;
-  std::cout << "게임을 종료합니다." << std::endl;
+  std::cout << "\n게임을 종료합니다." << std::endl;
   return 1;
 }
 
 void Board::Winner() {
-  int ED_count_ = 0; // 흑돌 수
-  int FD_count_ = 0; // 백돌 수
-  for (int i = 0; i < this->x_; i++){
-    for (int j = 0; j < this->y_; j++){
+  int ED_count_ = 0;  // 흑돌 수
+  int FD_count_ = 0;  // 백돌 수
+  for (int i = 0; i < this->x_; i++) {
+    for (int j = 0; j < this->y_; j++) {
       if (board_[j][i]->GetColor() == 1)
         ED_count_++;
-      else if(board_[j][i]->GetColor() == 0)
+      else if (board_[j][i]->GetColor() == 0)
         FD_count_++;
       else
         continue;
@@ -157,18 +159,16 @@ void Board::Winner() {
   }
   if (ED_count_ == FD_count_)
     std::cout << ED_count_ << " : " << FD_count_ << ", 무승부" << std::endl;
-  else
-    if (ED_count_ > FD_count_){
-      std::cout << ED_count_ << " : " << FD_count_ << ", 흑돌 승" << std::endl;
-    }
-    else {
-      std::cout << ED_count_ << " : " << FD_count_ << ", 백돌 승" << std::endl;
-    }
+  else if (ED_count_ > FD_count_) {
+    std::cout << ED_count_ << " : " << FD_count_ << ", 흑돌 승" << std::endl;
+  } else {
+    std::cout << ED_count_ << " : " << FD_count_ << ", 백돌 승" << std::endl;
+  }
 }
 
-Board::~Board(){
+Board::~Board() {
   for (int i = 0; i < y_; i++) {
-    for(int j = 0; j < x_; j++){
+    for (int j = 0; j < x_; j++) {
       delete board_[i][j];
     }
     delete[] board_[i];

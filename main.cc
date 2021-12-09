@@ -12,7 +12,7 @@ int inputValidx() {
   int x;
   std::cin >> x;
   while (1) {
-    if (x >= 4 && x <= 99 && std::cin.good()) {
+    if (x >= 3 && x <= 99 && std::cin.good()) {
       break;
     }
     std::cin.clear();
@@ -44,7 +44,7 @@ bool OneGame() {
   using std::cout;
   using std::endl;
   cout << "사용할 보드의 한변의 길이를 입력해주세요. " << endl;
-  cout << "최소 크기는 4 * 4 이며 최대 크기는 99 * 99 입니다." << endl;
+  cout << "최소 크기는 3 * 3 이며 최대 크기는 99 * 99 입니다." << endl;
   int x = inputValidx();
 
   Board board(x, x);
@@ -79,6 +79,7 @@ bool OneGame() {
     }
   }
   // 돌 수 세기
+  NT->Print(board);
   board.Winner();
 
   cout << "다시 하시겠습니까? (1 : 다시하기, 0 : 그만하기)" << endl;
@@ -98,7 +99,7 @@ int main(int argc, char** argv) {
     doGame = OneGame();
   }
   cout << "오셀로 게임을 종료합니다." << endl;
-  sleep(2000);
+  sleep(1);
 
   return 0;
 }
