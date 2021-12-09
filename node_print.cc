@@ -31,7 +31,8 @@ const void Node_Print_table::Print(Board &board) {
   std::string line2_ = "   ";
 
   for (int i = 0; i < x; i++) {
-    line1_ += "   ";
+    if(i>9) line1_ += "  ";
+    else line1_ += "   ";
     line1_ += std::to_string(i);
   }
   std::cout << line1_ << std::endl;
@@ -48,7 +49,8 @@ const void Node_Print_table::Print(Board &board) {
   }
   std::cout << line2_ << std::endl;
   for (int i = 0; i < y; i++) {
-    line1_ = " " + std::to_string(i) + " " + VL;
+    if(i>9) line1_ =  std::to_string(i) + " " + VL;
+    else line1_ = " " + std::to_string(i) + " " + VL;
     for (int j = 0; j < x; j++) {
       line1_ += SE;
       //공백 사이에 들어갈 문자 선택
