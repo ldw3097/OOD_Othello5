@@ -1,15 +1,15 @@
-#ifndef NODE_PRINT_H
-#define NODE_PRINT_H
+#ifndef NODE_PRINT_H_
+#define NODE_PRINT_H_
 #include "node.h"
-#include "Board.h"
+#include "board.h"
 
 class Node_Print_table {
  public:
   Node_Print_table();
   static Node_Print_table* GetInstance();
-  const void Print( Board &board) ;
+  void Print(const Board &board);
  private:
   static Node_Print_table* instance_;
 };
 
-#endif  // NODE_PRINT_H
+#endif  // NODE_PRINT_H_

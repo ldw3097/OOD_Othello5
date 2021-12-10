@@ -3,7 +3,7 @@
 #include <iostream>
 Node::Node(int color, int x, int y) : color_(color), x_(x), y_(y) {}
 
-Node::Node(){};
+Node::Node() {}
 
 const void Node::SetNode(Node* left, Node* right, Node* top, Node* bottom) {
   this->left_ = left;
@@ -89,8 +89,7 @@ void Node::DFS(int dir) const {
           delete index;
           index = NULL;
           this->GetNext(dir)->SetColor(this->GetColor());
-          //          this->GetNext(dir)->SetDot();	모든 방향으로 반복
-          this->GetNext(dir)->DFS(dir);  //진행 방향으로 반복
+          this->GetNext(dir)->DFS(dir);  // 진행 방향으로 반복
           break;
         }
         if (index->GetNext(dir) == nullptr) break;
@@ -108,10 +107,10 @@ int Node::Condition(int origin_color) const {
   Node* index = this->Clone();
   Node* origin_node = index;
   // TOP 방향 탐색
-  //다음 TOP이 존재하는 경우 반복
+  // 다음 TOP이 존재하는 경우 반복
   for (int i = 0; i < 8; i++) {
     index = origin_node->GetNext(i);
-    flag = 0;  //이전 방향에서의 플래그는 초기화
+    flag = 0;  // 이전 방향에서의 플래그는 초기화
     while ((index != nullptr)) {
       if ((index->GetColor() == -1)) break;
       if (origin_color != index->GetColor()) {
@@ -135,109 +134,4 @@ int Node::Condition(int origin_color) const {
       return 0;
   }
   return 1;
-  /* BOTTOM
-    flag = 0;
-    index = this->Clone();
-    while((index->GetBottom() != nullptr)&&(index->GetBottom()->GetColor() !=
-  -1)) { if (origin_color != index->GetBottom()->GetColor()) { flag = 1; index =
-  index->GetBottom(); continue;
-      }
-      if (origin_color == index->GetBottom()->GetColor()) {
-        break;
-      }
-      index = index->GetBottom();
-    }
-    if ((flag == 1)&&(index->GetBottom()->GetColor() != -1)&&(index->GetBottom()
-  != nullptr)) return 0;
-  // LEFT
-    flag = 0;
-    index = this->Clone();
-    while((index->GetLeft() != nullptr)&&(index->GetLeft()->GetColor() != -1)) {
-      if (origin_color != index->GetLeft()->GetColor()) {
-        flag = 1;
-        index = index->GetLeft();
-        continue;
-      }
-      if (origin_color == index->GetLeft()->GetColor()) {
-        break;
-      }
-      index = index->GetLeft();
-    }
-
-    if ((flag == 1)&&(index->GetLeft()->GetColor() != -1)&&(index->GetLeft() !=
-  nullptr)) return 0;
-  // RIGHT
-    flag = 0;
-    index = this->Clone();
-    while((index->GetRight() != nullptr)&&(index->GetRight()->GetColor() != -1))
-  { if (origin_color != index->GetRight()->GetColor()) { flag = 1; index =
-  index->GetRight(); continue;
-      }
-      if (origin_color == index->GetRight()->GetColor()) {
-        break;
-      }
-      index = index->GetRight();
-    }
-    if ((flag == 1)&&(index->GetRight()->GetColor() != -1)&&(index->GetRight()
-  != nullptr)) return 0;
-
-  // TOPLEFT
-    flag = 0;
-    index = this->Clone();
-    while((index->GetTopLeft() != nullptr)&&(index->GetTopLeft()->GetColor() !=
-  -1)) { if (origin_color != index->GetTopLeft()->GetColor()) { flag = 1; index
-  = index->GetTopLeft(); continue;
-      }
-      if (origin_color == index->GetTopLeft()->GetColor()) {
-        break;
-      }
-      index = index->GetTopLeft();
-    }
-    if ((flag == 1)&&(index->GetTopLeft()->GetColor() !=
-  -1)&&(index->GetTopLeft() != nullptr)) return 0;
-  // TOPRIGHT
-    flag = 0;
-    index = this->Clone();
-    while((index->GetTopRight() != nullptr)&&(index->GetTopRight()->GetColor()
-  != -1)) { if (origin_color != index->GetTopRight()->GetColor()) { flag = 1;
-        index = index->GetTopRight();
-        continue;
-      }
-      if (origin_color == index->GetTopRight()->GetColor()) {
-        break;
-      }
-      index = index->GetTopRight();
-    }
-    if ((flag == 1)&&(index->GetTopRight()->GetColor() !=
-  -1)&&(index->GetTopRight() != nullptr)) return 0;
-  // BOTTOMLEFT
-    flag = 0;
-    index = this->Clone();
-    while((index->GetBottomLeft() !=
-  nullptr)&&(index->GetBottomLeft()->GetColor() != -1)) { if (origin_color !=
-  index->GetBottomLeft()->GetColor()) { flag = 1; index =
-  index->GetBottomLeft(); continue;
-      }
-      if (origin_color == index->GetBottomLeft()->GetColor()) {
-        break;
-      }
-      index = index->GetBottomLeft();
-    }
-    if ((flag == 1)&&(index->GetBottomLeft()->GetColor() !=
-  -1)&&(index->GetBottomLeft() != nullptr)) return 0;
-    // BOTTOMRIGHT
-    flag = 0;
-    index = this->Clone();
-    while((index->GetBottomRight() !=
-  nullptr)&&(index->GetBottomRight()->GetColor() != -1)) { if (origin_color !=
-  index->GetBottomRight()->GetColor()) { flag = 1; index =
-  index->GetBottomRight(); continue;
-      }
-      if (origin_color == index->GetBottomRight()->GetColor()) {
-        break;
-      }
-      index = index->GetBottomRight();
-    }
-    if ((flag == 1)&&(index->GetBottomRight()->GetColor() !=
-  -1)&&(index->GetBottomRight() != nullptr)) return 0; else return 1;*/
 }

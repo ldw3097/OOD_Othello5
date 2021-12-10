@@ -1,4 +1,4 @@
-#include "Board.h"
+#include "board.h"
 
 #include <iostream>
 
@@ -40,44 +40,44 @@ void Board::SortTable() {
 
   for (int i = 0; i < y_; i++) {
     for (int j = 0; j < x_; j++) {
-      if (i == 0) {
+      if (i == 0)
         temp_top = nullptr;
-      } else
+      else
         temp_top = board_[i - 1][j];
 
-      if (i == y_ - 1) {
+      if (i == y_ - 1)
         temp_bottom = nullptr;
-      } else
+      else
         temp_bottom = board_[i + 1][j];
 
-      if (j == 0) {
+      if (j == 0)
         temp_left = nullptr;
-      } else
+      else
         temp_left = board_[i][j - 1];
 
-      if (j == x_ - 1) {
+      if (j == x_ - 1)
         temp_right = nullptr;
-      } else
+      else
         temp_right = board_[i][j + 1];
 
-      if (i == 0 || j == 0) {
+      if (i == 0 || j == 0)
         temp_top_left = nullptr;
-      } else
+      else
         temp_top_left = board_[i - 1][j - 1];
 
-      if (i == 0 || j == x_ - 1) {
+      if (i == 0 || j == x_ - 1)
         temp_top_right = nullptr;
-      } else
+      else
         temp_top_right = board_[i - 1][j + 1];
 
-      if (i == y_ - 1 || j == 0) {
+      if (i == y_ - 1 || j == 0)
         temp_bottom_left = nullptr;
-      } else
+      else
         temp_bottom_left = board_[i + 1][j - 1];
 
-      if (i == y_ - 1 || j == x_ - 1) {
+      if (i == y_ - 1 || j == x_ - 1)
         temp_bottom_right = nullptr;
-      } else
+      else
         temp_bottom_right = board_[i + 1][j + 1];
 
       board_[i][j]->SetNode(temp_left, temp_right, temp_top, temp_bottom,
@@ -88,10 +88,10 @@ void Board::SortTable() {
 }
 
 bool Board::IsValidInput(int y, int x, int color) {  // 올바른 위치인지 검사
-  if ((x < 0) || (y < 0)) {  //입력 좌표가 음수인 경우
+  if ((x < 0) || (y < 0)) {  // 입력 좌표가 음수인 경우
     return false;
   }
-  if ((this->x_ > x) && (this->y_ > y)) {  //보드판 내의 좌표인 경우
+  if ((this->x_ > x) && (this->y_ > y)) {  // 보드판 내의 좌표인 경우
     if (board_[y][x]->GetColor() != -1)    // 이미 돌이 존재하는 곳
       return false;
     // 게임 규칙에 따른 위치 조건
@@ -99,7 +99,7 @@ bool Board::IsValidInput(int y, int x, int color) {  // 올바른 위치인지 �
       return true;
     else
       return false;
-  } else {  //보드판 밖의 좌표인 경우
+  } else {  // 보드판 밖의 좌표인 경우
     return false;
   }
 }
@@ -109,6 +109,9 @@ void Board::PlaceStone(int y, int x, int color) {
   board_[y][x]->SetDot();
 }
 
+// 다음 색을 놓을수 있다: 0
+// 놓을수 없다: 2
+// 다다음색도 놓을수 없다: 1
 int Board::IsPass(int color) {
   // 보드 전체를 돌며 종료/패스 조건 체크
   // 현재 인자로 들어온 색은 이미 놓였으니
@@ -157,9 +160,9 @@ void Board::Winner() {
         continue;
     }
   }
-  if (ED_count_ == FD_count_)
+  if (ED_count_ == FD_count_) {
     std::cout << ED_count_ << " : " << FD_count_ << ", 무승부" << std::endl;
-  else if (ED_count_ > FD_count_) {
+  } else if (ED_count_ > FD_count_) {
     std::cout << ED_count_ << " : " << FD_count_ << ", 흑돌 승" << std::endl;
   } else {
     std::cout << ED_count_ << " : " << FD_count_ << ", 백돌 승" << std::endl;

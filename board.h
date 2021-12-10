@@ -1,7 +1,8 @@
-#ifndef BOARD_H
-#define BOARD_H
-#include "node.h"
+#ifndef BOARD_H_
+#define BOARD_H_
 #include <string>
+
+#include "node.h"
 
 class Board {
  public:
@@ -12,17 +13,18 @@ class Board {
   const int y() const;
   const int x() const;
 
-  Node** operator[] (int index) const;
+  Node** operator[](int index) const;
   void SortTable();
   bool IsValidInput(int y, int x, int color);
   void PlaceStone(int y, int x, int color);
   int IsPass(int color);
   void Winner();
   ~Board();
+
  private:
   Node*** board_;
   const int y_;
   const int x_;
 };
 
-#endif // BOARD_H
+#endif  // BOARD_H_

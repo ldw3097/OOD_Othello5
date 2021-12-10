@@ -8,13 +8,13 @@ node.o : node.cc node.h
 node_print.o : node_print.cc node_print.h
 	g++ $(std) node_print.cc -c -o $@ -g
 
-Board.o : Board.cc Board.h
-	g++ $(std) Board.cc -c -o $@ -g
+board.o : board.cc board.h
+	g++ $(std) board.cc -c -o $@ -g
 
 main.o : main.cc
 	g++ $(std) main.cc -c -o $@ -g
 
-main : main.o node.o node_print.o Board.o
+main : main.o node.o node_print.o board.o
 	g++ $(std) $^ -o $@ -g
 
 clean :
@@ -46,8 +46,8 @@ gtest.a : gtest-all.o
 gtest_main.a : gtest-all.o gtest_main.o
 	$(AR) $(ARFLAGS) $@ $^
 
-SortTest.o : SortTest.cpp $(GTEST_HEADERS)
-	g++ $(CPPFLAGS) $(CXXFLAGS) --std=c++17 -c SortTest.cpp -o $@
+othellotest.o : othellotest.cc $(GTEST_HEADERS)
+	g++ $(CPPFLAGS) $(CXXFLAGS) --std=c++17 -c othellotest.cc -o $@
 
-test :SortTest.o gtest_main.a
+test :othellotest.o gtest_main.a node.o board.o
 	g++ $(CPPFLAGS) $(CXXFLAGS) --std=c++17 $^ -o $@ 

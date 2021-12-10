@@ -4,7 +4,7 @@
 #include <string>
 #include <utility>
 
-#include "Board.h"
+#include "board.h"
 #include "node.h"
 #include "node_print.h"
 
@@ -52,16 +52,17 @@ bool OneGame() {
 
   std::pair<int, int> inp;
   int color = 1;  // 흑돌
-  while (1) {     // TODO: 게임 끝 검사를 조건문으로 하기
+  while (1) {     // 게임 끝 검사를 조건문으로 하기
     NT->Print(board);
     if (color) {
       cout << "흑돌(\u25cb)의 차례입니다. 돌을 놓을 위치를 x y 로 "
               "입력해주세요"
            << endl;
-    } else
+    } else {
       cout << "백돌(\u25cf)의 차례입니다. 돌을 놓을 위치를 x y 로 "
               "입력해주세요"
            << endl;
+    }
     inp = inputValidyx();
     while (!board.IsValidInput(inp.first, inp.second, color)) {
       cout << "해당 위치에는 놓을 수 없습니다. 다시 입력하세요" << endl;
