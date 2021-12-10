@@ -8,6 +8,7 @@
 #include "node.h"
 #include "node_print.h"
 
+// 올바른 숫자 하나를 입력받음
 int inputValidx() {
   int x;
   std::cin >> x;
@@ -15,8 +16,8 @@ int inputValidx() {
     if (x >= 3 && x <= 99 && std::cin.good()) {
       break;
     }
-    std::cin.clear();
-    std::cin.ignore(10000, '\n');
+    std::cin.clear();  // cin 객체의 내부 상태 플래스 초기화
+    std::cin.ignore(10000, '\n');  // \n이 나올때까지 10000문자를 무시
     std::cout << "잘못된 입력입니다. 다시 입력해주세요." << std::endl;
     std::cin >> x;
   }
