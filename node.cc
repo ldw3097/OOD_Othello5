@@ -106,8 +106,8 @@ int Node::Condition(int origin_color) const {
   int flag = 0;  // 탐색 과정에서 사이에 상대 돌이 있었는지
   Node* index = this->Clone();
   Node* origin_node = index;
-  // TOP 방향 탐색
-  // 다음 TOP이 존재하는 경우 반복
+  // 한 방향부터 순서대로 탐색
+  // 해당 방향의 다음 노드가 존재하는 경우 반복
   for (int i = 0; i < 8; i++) {
     index = origin_node->GetNext(i);
     flag = 0;  // 이전 방향에서의 플래그는 초기화

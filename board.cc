@@ -153,13 +153,16 @@ void Board::Winner() {
   for (int i = 0; i < this->x_; i++) {
     for (int j = 0; j < this->y_; j++) {
       if (board_[j][i]->GetColor() == 1)
+      // 흑돌 수 카운트
         ED_count_++;
       else if (board_[j][i]->GetColor() == 0)
+      // 백돌 수 카운트
         FD_count_++;
       else
         continue;
     }
   }
+  // 스코어 및 승패 출력부
   if (ED_count_ == FD_count_) {
     std::cout << ED_count_ << " : " << FD_count_ << ", 무승부" << std::endl;
   } else if (ED_count_ > FD_count_) {
